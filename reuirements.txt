@@ -4,7 +4,6 @@ numpy==1.26.4
 scikit-learn==1.4.2
 spacy==3.7.4
 lime==0.2.0.1
-imbalanced-learn==0.11.0  # Replaces 'imblearn==0.0' with actual package
+imbalanced-learn==0.11.0
 scipy==1.13.0
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
 
