@@ -187,9 +187,10 @@ if uploaded_file:
             keywords = [vectorizer.get_feature_names_out()[j] for j in top_indices if tfidf_part[j] > 0]
 
             if keywords:
-                explanation = f"Words like **{', '.join(keywords)}** indicate this clause relates to compliance, obligations, or disciplinary policy, prompting a **{label}** risk label."
+                keyword_str = ", ".join([f"<b>{kw}</b>" for kw in keywords])
+                explanation = f"Words like {keyword_str} indicate this clause relates to compliance, obligations, or disciplinary policy, prompting a <b>{label}</b> risk label."
             else:
-                explanation = f"No strong terms detected, but length and phrasing indicate a **{label}** risk level."
+                explanation = f"No strong terms detected, but length and phrasing indicate a <b>{label}</b> risk level."
 
             st.session_state.analyzed_results.append((i+1, clause, label, explanation))
 
@@ -211,5 +212,3 @@ if st.session_state.analyzed_results:
         st.markdown(f"<div style='background:#f4f6f7;padding:10px;border-left:4px solid #ccc;'>{explanation}</div>", unsafe_allow_html=True)
 
     st.success("✅ Review complete.")
-
-
