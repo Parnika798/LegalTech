@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score
 from imblearn.over_sampling import RandomOverSampler
-from scipy.sparse import hstack
+from scipy.sparse import hstack, csr_matrix
 
 # -------------------
 # Load spaCy
@@ -120,6 +120,10 @@ if uploaded_file:
             x_input = vectorizer.transform([lemmatized])
             x_input = hstack([x_input, np.array([[clause_len]])])
 
+            # Convert to CSR format before slicing
+            if not isinstance(x_input, csr_matrix):
+                x_input = x_input.tocsr()
+
             pred_idx = model.predict(x_input)[0]
             risk_label = le.inverse_transform([pred_idx])[0]
 
@@ -130,10 +134,9 @@ if uploaded_file:
             # HR-friendly explanation
             tfidf_features = vectorizer.get_feature_names_out()
             tfidf_part = x_input[:, :-1].toarray().flatten()
-            clause_vector = tfidf_part
 
-            top_indices = clause_vector.argsort()[-5:][::-1]
-            top_keywords = [tfidf_features[j] for j in top_indices if clause_vector[j] > 0]
+            top_indices = tfidf_part.argsort()[-5:][::-1]
+            top_keywords = [tfidf_features[j] for j in top_indices if tfidf_part[j] > 0]
 
             if top_keywords:
                 summary = f"The model associated this clause with **{risk_label}** risk because of keywords like: **{', '.join(top_keywords)}**."
