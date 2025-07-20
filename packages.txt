@@ -1,0 +1,2 @@
+# This file tells Streamlit Cloud to install additional packages from shell
+python -m spacy download en_core_web_sm
