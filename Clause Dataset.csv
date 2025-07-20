@@ -1,0 +1,512 @@
+Clause ID,Clause Text,Clause Type,Risk Level
+1,"Our Employee PTO policy, often known as paid time off, refers to the amount of vacation time we give to our employees each year or month.",PTO Policy,Low
+2,Employees are free to utilize PTO anyway they want.,PTO Policy,Low
+3,This policy explains how paid time off is accrued and how employees can manage this benefit.,PTO Policy,Low
+4,All employees are subject to this policy.,Scope,Low
+5,"We provide full-time, permanent staff with X days of annual PTO, which they can use from the start of the year.",PTO Entitlement,Low
+6,Part-time employees will get PTO on a pro-rata basis.,PTO Entitlement,Low
+7,Temporary workers are paid X days per month multiplied by contract duration.,PTO Entitlement,Low
+8,PTO is distinct from parental leave and sick leave.,Leave Classification,Low
+9,Other types of leave such as bereavement and jury duty will be considered.,Leave Classification,Low
+10,"Submit a PTO request through HRMS, no justification required.",Leave Application,Low
+11,Arrange PTO two weeks in advance if more than 3 days.,Leave Scheduling,Low
+12,Unused PTO cannot be carried over.,Leave Accumulation,Medium
+13,"Employees may be eligible for additional PTO, capped at 25 days.",Leave Benefits,Low
+14,Employees who exhaust PTO may be granted unpaid time off.,Leave Policy,Low
+15,Confidentiality: Employees must not disclose sensitive info.,Confidentiality,High
+16,"Financial data, customer/vendor info, tech and pricing data is confidential.",Confidentiality,High
+17,Employees must keep confidential information protected.,Confidentiality,High
+18,Return or destroy confidential documents when no longer needed.,Confidentiality,High
+19,Share confidential info only when necessary and authorized.,Confidentiality,High
+20,Don’t disclose or misuse confidential info for personal gain.,Confidentiality,High
+21,Disclose confidential info only when required by law or authorized purpose.,Confidentiality Exception,Medium
+22,Breach of confidentiality may lead to legal action.,Disciplinary,High
+23,Interns must follow code of conduct and supervisor instructions.,Internship Terms,Low
+24,Interns must maintain confidentiality of all information.,Internship Confidentiality,High
+25,Internship duration may be changed upon mutual agreement.,Internship Terms,Low
+26,Performance during internship will be evaluated periodically.,Internship Terms,Low
+27,Successful completion of internship is subject to satisfactory performance.,Internship Terms,Low
+28,Interns must sign and return appointment letter to confirm acceptance.,Internship Terms,Low
+29,The Data Privacy Policy outlines practices for handling personal data in India.,Data Privacy,Medium
+30,Personal Data is information that can identify a person directly or indirectly.,Data Privacy,Low
+31,"Company collects personal data only for specified, explicit, and legitimate purposes.",Data Privacy,Low
+32,"Data is processed in a fair, transparent, and lawful manner.",Data Processing,Low
+33,"Individuals have rights to access, rectify, erase, or restrict their data.",Data Rights,Medium
+34,Access to personal data is restricted to employees and authorized third parties.,Data Security,Medium
+35,Company will notify affected parties and authorities in case of a data breach.,Data Breach,High
+36,Personal data may be transferred only with adequate safeguards in place.,Data Transfer,Medium
+37,Data is retained only as long as necessary or required by law.,Data Retention,Low
+38,Policy may be updated to reflect processing activities or legal changes.,Compliance,Low
+39,All employees must attend regular training on data privacy matters.,Training & Compliance,Low
+40,Overtime will be compensated for hours worked beyond standard schedule.,Overtime Policy,Low
+41,Overtime must comply with legal guidelines and company policy.,Overtime Policy,Medium
+42,Non-exempt employees who work extra hours are entitled to overtime pay.,Overtime Compensation,Low
+43,Overtime should only be used for urgent work and tracked properly.,Overtime Usage,Low
+44,Company discourages excessive or abusive overtime.,Overtime Limitation,Medium
+45,Daily/weekly overtime capped at 2 hours/day and 8 hours/week.,Overtime Limits,Low
+46,Employees working on shift-based systems are restricted from excessive overtime.,Shift Overtime,Medium
+47,Managers should not pressure employees into excessive overtime.,Overtime Ethics,Medium
+48,Accurate overtime records must be maintained and approved.,Overtime Records,Low
+49,Overtime compensation must be paid promptly.,Payroll Compliance,Low
+50,Confidential or sensitive assets like laptops must be handled responsibly.,Asset Policy,Medium
+51,"Asset inventory includes asset type, location, make, and ownership.",Asset Management,Low
+52,All assets are company-owned but may be assigned to employees temporarily.,Asset Ownership,Low
+53,Employees must maintain and ensure security of issued company devices.,Asset Handling,Medium
+54,Issued devices are covered under the company’s data protection and security policy.,Asset & Data Security,Medium
+55,Data created on company systems remains company property.,Data Ownership,Medium
+56,IT department monitors network traffic and equipment usage.,Monitoring Policy,High
+57,All company assets must be returned upon termination.,Exit Policy,Low
+58,"Assets include credit cards, access cards, devices, and software.",Exit Compliance,Low
+59,Employees must ensure all relevant data is transferred to the company before exit.,Knowledge Transfer,Low
+60,Any deviations from asset policy must be approved by management.,Policy Exceptions,Low
+61,Violations of asset policy are subject to disciplinary action.,Enforcement,Medium
+62,"Code of Ethics defines principles like integrity, honesty, and justice.",Code of Ethics,Low
+63,Respect for others is mandatory in all interactions.,Workplace Behavior,Low
+64,Harassment or victimization will result in termination.,Anti-Harassment,High
+65,"Dishonesty, fraud, and cheating are grounds for termination.",Ethics Violation,High
+66,Stealing office supplies leads to disciplinary action.,Minor Theft,Medium
+67,"Major fraud, data theft, or embezzlement leads to legal consequences.",Major Misconduct,High
+68,Conflicts of interest can result in termination if not disclosed.,Conflict of Interest,High
+69,Employees must act justly and objectively in decisions.,Fair Practices,Low
+70,Discrimination based on protected traits is strictly prohibited.,Anti-Discrimination,High
+71,Authority must be exercised without favoritism.,Leadership Conduct,Medium
+72,Employees must comply with legal obligations and company policies.,Lawfulness,High
+73,Confidential data must not be exposed or mishandled.,Confidentiality,High
+74,Employees must be competent and accountable for their work.,Responsibility,Low
+75,Collaboration and teamwork are encouraged for productivity.,Teamwork,Low
+76,A written code of ethics provides guidance in grey areas.,Code of Ethics,Low
+77,Employees must report threats or offensive behavior.,Harassment Reporting,Medium
+78,Employees must align behavior with company mission.,Ethical Conduct,Low
+79,Managers must justify decisions with objective records.,Accountability,Medium
+80,Relatives cannot be in a reporting relationship.,Nepotism Policy,Low
+81,Retaliation against complainants is prohibited.,Anti-Retaliation,High
+82,Breach of confidentiality or data protection will have legal action.,Confidentiality Breach,High
+83,Mistakes must be owned up to with corrective actions.,Professional Accountability,Low
+84,Employees should engage in active learning.,Learning & Development,Low
+85,Helping others and collaborating is expected.,Team Spirit,Low
+86,Employee must avoid exploiting confidential info post-exit.,Post-Exit Obligations,High
+87,Developments made during employment belong to the company.,IP Rights,Medium
+88,No posting negative content about the company online.,Social Media Ethics,Medium
+89,Personal Data must be processed for legitimate purposes.,Data Privacy,High
+90,Individuals may access or rectify their personal data.,Data Subject Rights,High
+91,Data must be stored securely with restricted access.,Data Security,High
+92,Data breaches must be reported to authorities and users.,Breach Notification,High
+93,Data is only transferred to third parties with safeguards.,Data Transfer,High
+94,Data retention follows defined retention periods.,Data Retention,Medium
+95,Employees must undergo privacy compliance training.,Training & Compliance,Medium
+96,Non-compliance to data policy may lead to action.,Policy Enforcement,Medium
+97,Personal data must be handled fairly and transparently.,Fair Processing,High
+98,Employees must not use insecure devices for company data.,Device Security,High
+99,All company assets must be inventoried and tracked.,Asset Inventory,Low
+100,Unauthorized sharing or disposal of assets is prohibited.,Asset Handling,Medium
+101,"Return of software, access cards, and equipment upon exit.",Exit Formalities,Low
+102,Employees are accountable for internet and device use.,IT Usage Policy,Medium
+103,Laptop users are responsible for laptop and data security.,Mobile Device Policy,Medium
+104,All exceptions to policies must be formally approved.,Policy Exceptions,Low
+105,Breach of policy may result in disciplinary action or termination.,Disciplinary Clause,High
+106,Relieving letter confirms end of employment and reasserts legal obligations.,Employment Termination,Medium
+107,"We don’t discriminate against people with disabilities or health conditions, but we want to do everything possible to help employees stay healthy.",Employee Health,Low
+108,We provide group health insurance to all eligible employees.,Employee Health,Low
+109,You may choose to continue your group health benefits for a limited period after leaving our company.,Employee Health,Medium
+110,"Employees who are injured at work can receive wage replacement, medical care and rehabilitation benefits according to workers’ compensation laws.",Workers' Compensation,Low
+111,"If you’re injured at work, inform us as soon as possible and file a claim.",Workers' Compensation,Low
+112,You can occasionally work from home if your job doesn’t require you to be on-site.,Work from Home,Low
+113,"In case of emergency, you may work from home without prior approval but inform your manager.",Work from Home,Medium
+114,Remote work is allowed for a maximum of two consecutive weeks per year unless otherwise agreed.,Remote Work,Low
+115,"We reimburse employee expenses related to business travel, relocation, and training.",Reimbursement Policy,Low
+116,You must keep receipts and submit reimbursable expenses to your manager within three months.,Reimbursement Policy,Low
+117,Our recruiters and hiring managers can use this recruitment policy sample as a guide to build an efficient hiring process.,Recruitment Policy,Low
+118,"At every level of the hiring process, we adhere to our equal opportunity policy.",Equal Opportunity,Low
+119,All workers who are involved in hiring for our organization must follow this recruitment and selection policy.,Recruitment Policy,Low
+120,"Hiring teams could take steps like analyzing job descriptions, choosing sources for posting, and background checks.",Recruitment Process,Low
+121,"Every hiring process must include the first five stages: need assessment, internal/external hire, JD analysis, source selection, and step determination.",Recruitment Process,Low
+122,"Hiring managers can post openings internally using emails, newsletters, or the applicant tracking system.",Internal Recruitment,Low
+123,"Job advertisements should avoid jargon, long phrases, and gendered language.",Job Ad Guidelines,Low
+124,"The hiring process typically includes resume screening, phone screening, a project, and interviews.",Interview & Selection,Low
+125,Candidates should always be informed if they are rejected after an interview.,Candidate Communication,Low
+126,Managers should consult HR before giving feedback to avoid legal exposure.,Interview Feedback,Medium
+127,"If an offer is revoked, HR must document it with valid legal reasons like forged references or work eligibility issues.",Offer Revocation,High
+128,It is the policy of [Company Name] to maintain a professional work environment that is free from any form of harassment or discrimination.,Ethics & Conduct,Low
+129,"""Employee fraternization"" refers to any romantic or social relationship between employees that could potentially affect the work environment or create a conflict of interest.",Fraternization,Medium
+130,Employees in supervisory roles are prohibited from engaging in romantic or social relationships with employees they supervise.,Fraternization,High
+131,"If such a relationship arises, it should be disclosed to Human Resources, and appropriate action will be taken.",Fraternization,Medium
+132,Public displays of affection are not appropriate in the workplace and should be avoided.,Workplace Conduct,Low
+133,Employees should not share confidential or sensitive information about the company or colleagues with each other outside the scope of their job responsibilities.,Confidentiality,Medium
+134,Employees who become aware of any violations of this policy should promptly report the matter to their supervisor or Human Resources.,Reporting,Low
+135,"Violation of this policy may result in disciplinary action, up to and including termination of employment.",Disciplinary Action,High
+136,"[Company Name] is committed to encouraging equality, diversity and inclusion among our workforce and eliminating unlawful discrimination.",DEI Policy,Low
+137,The aim is for our workforce to be truly representative of all sections of society and for each employee to feel respected and able to give their best.,DEI Policy,Low
+138,The organisation is committed against unlawful discrimination of customers or the public in providing goods or services.,DEI Policy,Medium
+139,The policy ensures fairness and respect for all employees regardless of contract type.,DEI Policy,Low
+140,We do not unlawfully discriminate based on protected characteristics under the Equality Act 2010.,DEI Policy,Medium
+141,"We oppose all forms of unlawful discrimination including pay, promotions, training, and dismissal.",DEI Policy,Medium
+142,"We aim to create a workplace free of bullying, harassment, and victimisation.",DEI Policy,Medium
+143,All employees are responsible for preventing unlawful discrimination and harassment.,DEI Policy,Medium
+144,"Employees may be held liable for acts of bullying, harassment, or discrimination.",Disciplinary Action,High
+145,Serious violations may result in dismissal without notice (gross misconduct).,Disciplinary Action,High
+146,Sexual harassment may be both an employment and a criminal matter.,Sexual Harassment,High
+147,Training and development opportunities will be made available to all staff.,DEI Policy,Low
+148,"Decisions on staff will be based on merit, with exceptions allowed under the Equality Act.",DEI Policy,Low
+149,Workforce makeup will be monitored to ensure fairness and policy effectiveness.,DEI Policy,Low
+150,"Our company observes specific holidays such as New Year's Day, Labor Day, and Christmas.",Holiday Policy,Low
+151,"If a holiday falls on a non-working day, it will be observed on the closest business day.",Holiday Policy,Low
+152,HR is responsible for informing employees about holidays and updating internal systems.,HR Operations,Low
+153,"Our company offers a floating holiday, which employees can take on a day of their choice.",Employee Benefits,Low
+154,Floating days do not usually accrue if unused.,Leave Policy,Medium
+155,"If employees miss a holiday due to compressed work week, they can request a substitute day.",Work Flexibility,Low
+156,Employees must inform their manager and HR before taking a substitute day.,Leave Management,Low
+157,Employees working on holidays will be informed at least one week in advance.,Work Scheduling,Medium
+158,Non-exempt employees working on holidays will be paid a premium in addition to their hourly rate.,Compensation Policy,Medium
+159,Exempt employees working on holidays will be offered an additional day off within 12 months.,Leave Compensation,Low
+160,The company [may/may not] include holiday hours when calculating overtime eligibility.,Overtime Policy,Medium
+161,Exempt employees receive full compensation during holidays whether they work or not.,Holiday Pay Policy,Low
+162,Non-exempt permanent employees become eligible for holiday pay after 3 months of full-time service.,Compensation Eligibility,Medium
+163,Temporary non-exempt employees are not entitled to holiday pay.,Temporary Staff Policy,Medium
+164,"[Company Name] is committed to providing a safe, inclusive, and respectful work environment for all employees. This Policy on Prevention of Sexual Harassment (POCSO) is established to prevent, prohibit, and address incidents of sexual harassment within the workplace.",Anti-Harassment Policy,Low
+165,"The purpose of this policy is to: - Define and prohibit sexual harassment. - Establish a reporting mechanism for incidents of sexual harassment. - Provide a framework for investigations and resolution of complaints. - Promote a culture of respect, dignity, and equality in the workplace.",Anti-Harassment Policy,Low
+166,"This policy applies to all employees, contractors, vendors, interns, and any other individuals engaged with [Company Name] in a professional capacity.",Anti-Harassment Policy,Low
+167,"Sexual Harassment: Any unwelcome conduct of a sexual nature, whether verbal, physical, or visual, that creates an offensive, hostile, or intimidating work environment.",Anti-Harassment Policy,High
+168,"The following behaviors are strictly prohibited and may be considered acts of sexual harassment: - Unwanted sexual advances or requests for sexual favors. - Sexual comments, gestures, or jokes. - Displaying sexually suggestive materials. - Physical contact or proximity of a sexual nature. - Sexual coercion or pressure for sexual favors.",Anti-Harassment Policy,High
+169,"Any employee who believes they have been subjected to sexual harassment or has witnessed an incident, is encouraged to report the matter immediately. Reports should be made to [Designated Officer/Contact Person] via [Contact Details].",Anti-Harassment Policy,Medium
+170,"Upon receipt of a complaint, an Inquiry Committee will be constituted to conduct an impartial investigation. The committee will interview the complainant, respondent, and any relevant witnesses. The findings will be documented, and appropriate action will be taken.",Anti-Harassment Policy,Medium
+171,"All parties involved in the complaint process are expected to maintain strict confidentiality. Information related to the complaint, including identities of the parties, will be disclosed only on a need-to-know basis.",Anti-Harassment Policy,High
+172,[Company Name] strictly prohibits any form of retaliation against individuals who report incidents of sexual harassment or participate in the investigation process.,Anti-Harassment Policy,High
+173,"Any employee found to have engaged in sexual harassment will be subject to disciplinary action, up to and including termination of employment.",Anti-Harassment Policy,High
+174,[Company Name] will conduct regular training sessions on prevention of sexual harassment to ensure employees are aware of their rights and responsibilities under this policy.,Anti-Harassment Policy,Low
+175,"This policy will be reviewed periodically to ensure its effectiveness. [Company Name] reserves the right to revise, amend, or modify this policy at any time.",Anti-Harassment Policy,Low
+176,"I, [Employee Name], hereby acknowledge that I have received, read, and understood the [Company Name] Policy on Prevention of Sexual Harassment.",Anti-Harassment Policy,Low
+177,"Due to business needs, [Company Name] recognizes that resources may be required at its numerous locations or branches. In order to maximize available talents, it may need to move or relocate some of its personnel to such locations or branches for assistance or to oversee a function.",Relocation Policy,Medium
+178,This policy applies to all workers who are needed by the Company to migrate from their existing location or branch to assist the business. Relocation can take place within the same city or town as well as outside of it. Company-sponsored relocation or employee-requested relocation are both possibilities.,Relocation Policy,Low
+179,"Relocation Due to Promotion - When an employee is promoted, he or she may be shifted to another location to take on new or extra responsibilities.",Relocation Policy,Low
+180,Relocation for Adaptability - Relocation should be focused at boosting an employee's adaptability by assigning him or her a job responsibility that is different or higher than the current job.,Relocation Policy,Low
+181,"Cross-functional/cross-team relocations - A person's ability to relocate to a different function or a different group firm is determined by qualifications, knowledge, and experience.",Relocation Policy,Low
+182,Employee relocation requests will only be considered if the unit has a requirement at the location and the employee meets the criteria for the necessity.,Relocation Policy,Low
+183,"Relocation on deputation (or secondment) is permitted for a specific task or assignment for a certain minimum to maximum term, depending on the circumstances.",Relocation Policy,Low
+184,The Hiring Manager will discuss the personnel requirement with HR depending on the sort of talents required by a function/department.,Relocation Policy,Low
+185,The Hiring Manager and HR will explain the nature of the job and the business objective of the relocation with the employee and gain their formal consent.,Relocation Policy,Low
+186,The employee handing over must ensure sufficient paperwork and knowledge transfer at the time of migration.,Relocation Policy,Low
+187,"If the move is from one city to another with household items, a maximum of three working days of transit leave will be granted.",Relocation Policy,Low
+188,The moved employee and family may stay at a company-approved hotel for two weeks; assistance will be provided in finding housing and schools.,Relocation Policy,Low
+189,Employees cannot refuse a Company-initiated relocation unless they have medical issues.,Relocation Policy,Medium
+190,The HR department must sign the relocation order and distribute it to all concerned functions at both the existing and future units for action.,Relocation Policy,Low
+191,"When an employee is transferred from one entity to another, HR will ensure service continuity and other advantages.",Relocation Policy,Low
+192,Employees who wish to transfer must request via Reporting Manager and HR will review based on requirement.,Relocation Policy,Low
+193,"Allowances are not applicable if relocation is employee-initiated, except for 3-day transit leave to another city.",Relocation Policy,Low
+194,"In permanent relocation, a re-settlement advance of up to one month's gross salary will be provided.",Relocation Policy,Low
+195,Travel Allowance: Travel expenses for self and family to the new location will be compensated according to the company's travel policy.,Relocation Policy,Low
+196,"Packing, handling, tolls, insurance, and transport expenses will be reimbursed after bills are submitted within 30 days.",Relocation Policy,Low
+197,"Deputation Allowance is provided only for short-term assignments, as determined by HR and depending on grade/designation.",Relocation Policy,Low
+198,HR must approve any deviation from this policy. Legal and Compliance must authorize any changes to the policy.,Relocation Policy,Medium
+199,"Violations of this policy may result in disciplinary action, including dismissal.",Relocation Policy,High
+200,Our outside employment (or moonlighting) policy applies to our employees who take up other jobs while also working with our company.,Moonlighting Policy,Low
+201,"Although we generally discourage outside employment, we understand the need to supplement income or pursue interesting projects. This policy outlines our rules and provisions.",Moonlighting Policy,Low
+202,This policy mainly applies to full-time and salaried part-time employees working over 25 hours per week. Illegal side work will result in immediate termination and potential legal action.,Moonlighting Policy,High
+203,Employees must treat their job in our company as their primary occupation. Any other job should come second.,Moonlighting Policy,Medium
+204,Employees must not take up a job with our competitors. This may violate our non-compete agreement and lead to termination.,Moonlighting Policy,High
+205,Employees must not take a job if working hours overlap with main job hours. Attendance issues may result in disciplinary action.,Moonlighting Policy,Medium
+206,Employees must not take jobs that interfere with main job duties. Poor performance due to fatigue may result in review and action.,Moonlighting Policy,Medium
+207,"Employees must not take jobs that create a conflict of interest, including working for clients, vendors, or starting competing businesses.",Moonlighting Policy,High
+208,"Side jobs are defined as paid, regular work including consulting, managing a business, or board memberships.",Moonlighting Policy,Low
+209,"Employees must inform their manager if they have taken a side job, to ensure no policy violations occur.",Moonlighting Policy,Low
+210,"Occasional help at friend/family business or freelancing does not need to be reported, but must not interfere with the main job.",Moonlighting Policy,Low
+211,Volunteer work is allowed but must not occur during working hours or affect job performance.,Moonlighting Policy,Low
+212,Managers should document employee disclosures about side jobs and prevent conflicts of interest.,Moonlighting Policy,Low
+213,Managers should support employees with financial counseling or increased working hours if needed.,Moonlighting Policy,Low
+214,"If the reason for outside employment is career growth, managers should suggest internal projects, rotations, or training.",Moonlighting Policy,Low
+215,"Employees must not use company equipment, resources, or materials for outside activities unless specifically permitted.",Moonlighting Policy,Medium
+216,Work laptops and company cars may be used outside work hours with conditions; cybersecurity and car policies apply.,Moonlighting Policy,Medium
+217,No reimbursements will be made for expenses incurred outside work hours for personal use of equipment.,Moonlighting Policy,Low
+218,Breaching confidentiality or non-compete agreements results in immediate termination and possible legal action.,Moonlighting Policy,High
+219,Attendance or performance issues due to moonlighting may result in disciplinary action including asking to quit the side job.,Moonlighting Policy,Medium
+220,Continued non-compliance after disciplinary action may result in termination.,Moonlighting Policy,High
+221,"Layoffs may occur due to factors such as economic downturns, reorganization, or business necessity.",Layoff & Recall Policy,Medium
+222,"Layoffs will be based on fair and objective evaluation of performance, skills, qualifications, and operational needs.",Layoff & Recall Policy,Medium
+223,"Affected employees will be provided with advance notice of the layoff, in accordance with legal requirements.",Layoff & Recall Policy,Low
+224,Company will communicate layoff decisions respectfully and provide support resources to affected employees.,Layoff & Recall Policy,Low
+225,Employees affected by layoff may be eligible for a severance package including salary and benefits continuation.,Layoff & Recall Policy,Medium
+226,Affected employees will have access to benefits counseling to understand layoff impact and options.,Layoff & Recall Policy,Low
+227,"Recall decisions will be based on operational needs, required skills, and past performance.",Layoff & Recall Policy,Low
+228,Employees will be recalled in a fair and non-discriminatory manner based on objective criteria.,Layoff & Recall Policy,Low
+229,Employees selected for recall will be notified in writing with reemployment terms and conditions.,Layoff & Recall Policy,Low
+230,Affected employees may access career counseling services to support new employment opportunities.,Layoff & Recall Policy,Low
+231,Company may provide information on training opportunities to help affected employees enhance skills.,Layoff & Recall Policy,Low
+232,"Company will comply with all applicable laws regarding layoffs, including notice periods and severance.",Layoff & Recall Policy,Medium
+233,Company will adhere to WARN Act requirements regarding advance notice of mass layoffs where applicable.,Layoff & Recall Policy,High
+234,This policy will be reviewed periodically for legal compliance and alignment with company goals.,Layoff & Recall Policy,Low
+235,Any amendments to the policy will be communicated to employees transparently and in a timely manner.,Layoff & Recall Policy,Low
+236,"Workplace gossip can have detrimental effects on morale, trust, and culture. This policy sets expectations for respectful communication and outlines consequences of gossip.",Workplace Behavior,Medium
+237,"Gossip is defined as the discussion of personal or speculative information about individuals within the organization, often without their knowledge or consent.",Workplace Behavior,Low
+238,"Unacceptable gossip includes spreading false information, discussing personal matters unrelated to work, making derogatory remarks, or harming someone's reputation.",Workplace Behavior,Medium
+239,"Consequences for engaging in gossip may include verbal counseling, written warnings, or termination, depending on severity and repetition.",Disciplinary Action,High
+240,Employees are encouraged to report instances of gossip confidentially to HR or a supervisor; no retaliation will occur for good faith reporting.,Reporting & Compliance,Medium
+241,Employees must respect the confidentiality and privacy of colleagues and avoid discussing sensitive information without consent.,Confidentiality,High
+242,"Positive, direct communication is encouraged; concerns should be addressed with the individual involved or reported to HR.",Communication Policy,Low
+243,The organization may offer educational programs to raise awareness about gossip's effects and promote a respectful workplace culture.,Workplace Culture,Low
+244,"When employees travel for company-related tasks, it is the company's responsibility to ensure safe and reliable travel arrangements.",Travel Policy,Low
+245,All business travel must be pre-approved by management within a specified time before the expected travel date. Employees are not allowed to make their own travel arrangements.,Travel Policy,Medium
+246,"Employees must submit a Travel Expense Report after returning, detailing both company-paid and personal expenses.",Expense Reimbursement,Medium
+247,"Employees are entitled to company-paid tickets, meals, and luggage, as well as cab services for business transportation during the trip.",Travel Benefits,Low
+248,"Employees will be booked into company-paid accommodation of a defined quality standard, such as a specific star-rated hotel.",Accommodation Policy,Low
+249,Meal expenses and client hosting costs will be reimbursed up to set limits. Meeting room bookings during travel will be company-paid.,Expense Reimbursement,Medium
+250,"Employees may share corporate-booked accommodations with non-employees, provided it does not result in extra costs. Additional personal expenses will not be reimbursed.",Travel with Non-Employees,Medium
+251,"For international travel, the company covers all logistics including lodging, visas, insurance, and requires dual senior approval for expense reporting.",International Travel Policy,High
+252,"Employees must practice responsible spending while traveling, keep receipts, and report expenses via the company expense system within the specified deadline.",Expense Reporting,Low
+253,"Smoking and the use of tobacco products are prohibited in all indoor and outdoor areas of the workplace for all employees, contractors, and visitors.",Workplace Conduct,Low
+254,"The purpose of this policy is to promote a healthy work environment, protect non-smokers from secondhand smoke, and comply with regulations.",Health & Safety,Low
+255,"This policy applies to all company premises including office buildings, vehicles, parking lots, and outdoor areas.",Policy Scope,Low
+256,"Smoking is strictly prohibited in indoor areas including offices, meeting rooms, and restrooms.",Workplace Conduct,Low
+257,"Smoking is also prohibited in outdoor areas such as entrances, exits, patios, and parking lots.",Workplace Conduct,Low
+258,"Designated smoking areas, if provided, must comply with laws and be situated away from main entrances and high-traffic zones.",Compliance,Low
+259,E-cigarettes and vaping devices are also prohibited under this policy.,Health & Safety,Low
+260,"Employees are responsible for ensuring compliance by contractors, guests, and other visitors.",Employee Responsibility,Low
+261,"Non-compliance may result in disciplinary action, including termination.",Disciplinary Action,Medium
+262,Employees who frequently or severely violate this policy may be terminated; minor infractions may lead to reprimands or benefit loss.,Disciplinary Action,Medium
+263,The company may provide support for smoking cessation upon request.,Employee Wellness,Low
+264,The policy will be communicated during onboarding and made available through internal channels.,Communication Policy,Low
+265,The policy will be periodically reviewed to ensure compliance with current laws.,Policy Review,Low
+266,All regular full-time employees are eligible for sick leave benefits.,Leave Policy,Low
+267,Part-time employees are eligible for sick leave on a pro-rata basis.,Leave Policy,Low
+268,"Sick leave is accrued [insert accrual basis, e.g., monthly or annually].",Leave Policy,Low
+269,"The accrual rate is [insert rate, e.g., 1 day per month].",Leave Policy,Low
+270,Employees must notify their supervisor as soon as possible on the first day of absence due to illness.,Leave Procedure,Low
+271,Sick leave requests should be submitted through [insert leave management system] and include the expected duration.,Leave Procedure,Low
+272,A medical certificate may be required for sick leave beyond [insert number] consecutive days.,Medical Requirement,Low
+273,The medical certificate should be submitted within [insert time frame] of returning to work.,Medical Requirement,Low
+274,Sick leave may be taken for a maximum of [insert number] days per year.,Leave Limit,Low
+275,"Extended sick leave may be granted under exceptional circumstances, subject to approval.",Leave Extension,Low
+276,"Sick leave may be paid or unpaid, depending on length of service and accrued leave.",Compensation,Medium
+277,The organization may designate certain illnesses as paid or unpaid leave.,Compensation,Medium
+278,Abuse of the sick leave policy may result in disciplinary action.,Disciplinary Action,Medium
+279,Frequent or suspicious patterns of sick leave may be investigated.,Disciplinary Action,Medium
+280,Employees must inform their supervisor of their return date and time.,Return to Work,Low
+281,Employees must provide any necessary documentation for extended sick leave.,Return to Work,Low
+282,"Accurate records of sick leave balances, usage, and approvals must be maintained.",Recordkeeping,Low
+283,Sick leave balances should be regularly communicated to employees.,Recordkeeping,Low
+284,All medical information related to sick leave will be treated as confidential.,Confidentiality,Low
+285,The organization reserves the right to review and amend the sick leave policy.,Policy Review,Low
+286,[Insert HR contact information for sick leave-related queries.],Contact Info,Low
+287,Payroll or Salary Advance Policy outlines terms for short-term emergency loans to support employees during financial emergencies.,Salary Advance,Low
+288,"This policy applies to all full-time or part-time permanent employees, and temporary employees with contracts exceeding one year.",Eligibility,Low
+289,The company reserves the right to reject any salary advance request without providing justification.,Discretionary Clause,Medium
+290,"Employees must have completed probation, not taken any other company loan, and not requested an advance in the past six months.",Eligibility,Low
+291,"Salary advance is only available for legitimate and urgent reasons, not for discretionary or planned expenses.",Use Criteria,Low
+292,Minimum advance allowed is 3x the employee’s average monthly net pay; exceptions can be approved by Department or HR Head.,Advance Terms,Low
+293,The full or EMI-based recovery of advance will be deducted from the next salary based on a signed repayment agreement.,Repayment Terms,Medium
+294,No interest or administrative fees will be charged on salary advances.,Financial Terms,Low
+295,"In case of resignation or termination before repayment, the remaining amount will be deducted from the final settlement.",Exit Clause,Medium
+296,"Employees must request advance via a formal HR form stating reason and amount, and accept policy terms.",Request Procedure,Low
+297,The Department Head must review and forward the form to HR and Finance Head for final decision.,Approval Workflow,Low
+298,"HR and Finance must process and decide on the request within two working days, preparing an agreement with repayment terms.",Decision Timeline,Low
+299,"Upon approval, the salary advance must be disbursed within two working days via cheque, cash, or transfer.",Disbursement,Low
+300,"If denied, the employee must be informed within one working day.",Denial Procedure,Low
+301,"Salary advances cannot be used for vacations, entertainment, gambling, or fine payments.",Restriction Clause,Low
+302,Any deviation from this policy requires HR approval; policy changes must be authorized by Legal and Compliance.,Governance,Low
+303,Employees are expected to avoid sharing sensitive company information on their personal social media accounts.,Confidentiality,High
+304,Social media activity during work hours should not interfere with job responsibilities or affect productivity.,Communication,Medium
+305,"Employees should refrain from making defamatory, offensive, or derogatory posts that could impact colleague relationships.",Workplace Conduct,High
+306,Corporate social media accounts must be used respectfully and responsibly to maintain the organization's reputation.,Communication,Medium
+307,Personal posts must include a disclaimer stating opinions are the employee's own and not endorsed by the company.,Communication,Low
+308,Disclosing confidential or proprietary content through social platforms is prohibited and may result in disciplinary action.,Confidentiality,High
+309,Employees representing the company on social media must avoid making statements outside their area of expertise.,Communication,Medium
+310,The organization reserves the right to monitor corporate social media activity for compliance and appropriateness.,Compliance,Medium
+311,Employees must not post discriminatory or libelous content from either personal or professional accounts.,Workplace Conduct,High
+312,"Violations of the social media policy, including posting confidential data or hate speech, may result in termination.",Disciplinary Action,High
+313,Employees should consult the PR or Marketing team before posting high-impact corporate announcements.,Communication,Low
+314,"The social media policy applies to all employees and includes platforms such as blogs, forums, and networks.",Policy Scope,Low
+315,"The purpose of the disciplinary policy is to set clear standards for employee conduct, performance, and attendance.",Disciplinary Policy,Low
+316,This policy applies to all regular employees of the company.,Policy Scope,Low
+317,Employees are expected to maintain professional behavior and workplace demeanor at all times.,Workplace Conduct,Medium
+318,"Misconduct includes sexual harassment, falsification of documents, insubordination, and theft.",Workplace Conduct,High
+319,"Absenteeism, frequent lateness, and unauthorized leave during work hours are forms of misconduct.",Attendance Policy,Medium
+320,Employees must not engage in unauthorized use of company equipment such as internet or telephones.,Asset Handling,Medium
+321,The company reserves the right to withhold payment in cases of serious misconduct resulting in termination.,Disciplinary Action,High
+322,Verbal warnings are issued for initial misconduct and will include required actions and training plans.,Disciplinary Procedure,Low
+323,A written warning follows if the employee fails to improve after a verbal warning.,Disciplinary Procedure,Medium
+324,Final written warning or termination is issued if the employee still fails to improve behavior or performance.,Disciplinary Procedure,High
+325,Employees have the right to appeal a warning or termination by submitting a written request to HR.,Employee Rights,Low
+326,An appeal committee of HR and senior management will evaluate the case and provide a decision within a week.,Employee Rights,Low
+327,The committee may suspend the employee during the appeal investigation period.,Disciplinary Action,Medium
+328,The disciplinary policy becomes effective from [date] and overrides all previous communication.,Policy Scope,Low
+329,"All employees are entitled to be treated with respect, fairness, and dignity in the workplace, regardless of their role or background.",Employee Relations,Low
+330,"We encourage open, honest, and transparent communication between employees and management to address concerns.",Employee Relations,Low
+331,"The company is committed to providing fair and equitable treatment to all employees, adhering to labor laws and policies.",Employee Relations,Low
+332,"Conflicts should be addressed promptly, professionally, and through constructive dialogue or mediation.",Conflict Resolution,Medium
+333,"Employees have the right to a safe and healthy work environment, freedom from discrimination, and fair compensation.",Employee Rights,Low
+334,Employees are expected to conduct themselves professionally and comply with company policies and procedures.,Employee Responsibilities,Medium
+335,Minor concerns should be resolved informally with supervisors or HR through open communication.,Grievance Procedure,Low
+336,Formal grievances should be submitted in writing to HR if informal resolution is unsatisfactory.,Grievance Procedure,Medium
+337,"Disciplinary action will follow a progressive approach: verbal warnings, written warnings, probation, suspension, or termination.",Disciplinary Action,High
+338,"Employees facing disciplinary action have the right to be informed, share their perspective, and appeal the decision.",Due Process,Medium
+339,"Confidentiality will be maintained throughout the resolution of employee matters, in line with applicable laws.",Confidentiality,Low
+340,Retaliation against employees for raising concerns or participating in investigations is strictly prohibited.,Non-Retaliation,High
+341,The Employee Relations Policy will be reviewed periodically and amended as needed with proper approval.,Policy Governance,Low
+342,"Our background check policy ensures candidate reliability, accuracy of information, and screening for serious criminal behavior.",Background Screening,Medium
+343,This policy applies to both external job candidates and internal candidates being considered for promotion or transfer.,Background Screening,Low
+344,"Background checks may include criminal records, credit reports, drug testing, verification reports, driving records, and reference checks.",Background Screening,Medium
+345,Not all candidates are required to pass every type of background check—each role has different requirements.,Background Screening,Low
+346,Background screening must comply with all local laws and legal guidelines.,Legal Compliance,High
+347,"Criminal checks are essential for candidates who will represent the company, access sensitive data, or handle finances.",Background Screening,High
+348,Background checks should ideally be conducted at the final stage of hiring to reduce time and cost.,Background Screening,Low
+349,"Background screening is intended to reinforce hiring decisions, not disqualify candidates arbitrarily.",Fair Hiring Practices,Medium
+350,HR must inform candidates about background checks in job ads and request written permission before conducting them.,Background Screening,Medium
+351,"The background check provider must meet standards for legality, confidentiality, cost, and turnaround time.",Background Screening,Medium
+352,All candidates must receive the results of their background check along with the company’s hiring decision.,Transparency,Medium
+353,Candidates have the right to dispute or clarify discrepancies in their background reports.,Due Process,Medium
+354,A clean background check does not guarantee employment unless a job offer has already been made.,Employment Terms,Medium
+355,"Criminal convictions will be assessed based on their severity, relevance to the role, and how recent they are.",Background Screening,High
+356,HR and hiring managers may still hire candidates with minor issues if explanations are satisfactory.,Background Screening,Medium
+357,A driving-related conviction within 2 years is disqualifying for roles involving vehicle use.,Background Screening,High
+358,Hiring managers and HR must follow a documented step-by-step process for conducting background checks.,Hiring Process,Low
+359,"If candidates refuse background checks, they will no longer be considered for the role.",Hiring Process,Medium
+360,All background check outcomes and decisions must be communicated clearly to candidates.,Transparency,Medium
+361,"[Company Name] is committed to equal employment opportunity regardless of race, color, religion, sex, gender identity, or other protected characteristics.",Equal Opportunity,High
+362,"This policy applies to all employment practices, including hiring, promotion, compensation, and termination.",Equal Opportunity,Medium
+363,"[Company Name] complies with all federal, state, and local non-discrimination laws.",Legal Compliance,High
+364,We believe diversity and inclusion strengthen our workforce by introducing varied ideas and perspectives.,Diversity & Inclusion,Low
+365,An Equal Employment Opportunity Coordinator is designated to assist with EEO matters.,Equal Opportunity,Medium
+366,Discrimination and harassment based on protected characteristics will not be tolerated and may lead to termination.,Workplace Conduct,High
+367,"Employees should report incidents of discrimination or harassment to a supervisor, manager, or the EEO Coordinator.",Grievance & Reporting,High
+368,[Company Name] will investigate all discrimination complaints promptly and take corrective action.,Grievance & Reporting,Medium
+369,Retaliation against employees who report policy violations or participate in investigations is strictly prohibited.,Retaliation Protection,High
+370,The Human Resources department is responsible for implementing and enforcing this Equal Opportunity Policy.,Policy Administration,Low
+371,This policy will be reviewed and revised periodically to ensure ongoing compliance and effectiveness.,Policy Governance,Low
+372,Our employee wellness program promotes employee health and provides access to wellness resources and personalized wellness plans.,Employee Wellness,Low
+373,"Employee wellness improves productivity, reduces sick days, and contributes to a happier workplace.",Employee Wellness,Low
+374,This policy applies to all employees and may be offered as part of a group health plan or separately.,Policy Scope,Low
+375,"Wellness program goals include helping employees lose weight, manage stress, quit smoking, and improve overall health.",Employee Wellness,Low
+376,"Available wellness resources include yoga classes, gym memberships, stress management seminars, and wellness coaches.",Employee Wellness Resources,Low
+377,Employees should contact HR or the Wellness Committee to sign up for resources or get a personalized wellness plan.,Employee Wellness Resources,Low
+378,Third-party wellness vendors may collect voluntary health assessments to personalize wellness programs.,Data Collection & Consent,Medium
+379,"Participation in health assessments, screenings, and wellness competitions is completely voluntary.",Consent & Voluntariness,Low
+380,Team leaders must communicate wellness program benefits and encourage team participation.,Supervisor Responsibilities,Low
+381,"Employees may receive wellness incentives such as cash, time off, or insurance premium reductions.",Wellness Incentives,Medium
+382,Wellness incentives will comply with all applicable legal limitations.,Legal Compliance,Medium
+383,Reasonable accommodations will be made for employees with disabilities or medical restrictions.,Accessibility & Inclusion,High
+384,"Employees unable to participate due to pregnancy, age, or disability will still be eligible for incentives.",Accessibility & Fairness,High
+385,The company will never use genetic or disability information to disadvantage employees.,Data Privacy,High
+386,Health or genetic data will only be accessed in aggregate form and never used coercively.,Data Confidentiality,High
+387,"Participation in the wellness program is completely voluntary, with no negative consequences for non-participation.",Consent & Voluntariness,Low
+388,"All wellness incentives will be offered equitably, regardless of health risk or disability status.",Equality & Non-Discrimination,High
+389,"The wellness program will be designed to be inclusive, non-burdensome, and financially accessible.",Program Design,Low
+390,Our Mental Health policy outlines how we prevent and address mental health issues among employees to promote well-being and productivity.,Mental Health Policy,Low
+391,"Mental health issues like stress, anxiety, and depression can negatively impact productivity, retention, and workplace safety.",Mental Health Risk,Medium
+392,This policy applies to all employees and is managed by HR or the Mental Wellness Committee.,Policy Scope,Low
+393,"We consult employees, management, and professionals when creating and revising mental health policies.",Policy Governance,Low
+394,"Mental health issues include conditions like depression, anxiety, stress, and substance abuse.",Definition of Mental Health Issues,Low
+395,"Mental health issues can manifest with physical symptoms like fatigue, appetite changes, or blood pressure spikes.",Mental Health Symptoms,Medium
+396,"Workplace factors like job insecurity, workload, and poor relationships can contribute to mental health problems.",Mental Health Triggers,Medium
+397,We commit to recognizing and mitigating workplace stressors contributing to mental health issues.,Management Responsibility,Medium
+398,We take mental illness seriously and aim to resolve related issues proactively.,Company Commitment,Low
+399,We provide support to employees facing mental health challenges through collaborative measures.,Employee Support,Low
+400,"We enforce policies like anti-retaliation, flexible work, parental leave, and anti-violence to reduce stress.",Internal Policies,Medium
+401,"A voluntary Employee Assistance Program (EAP) will offer counseling, assessments, and a 24-hour support line.",Employee Assistance Program,Low
+402,Our health insurance package covers mental illness treatment and substance-use disorders.,Mental Health Benefits,Medium
+403,A mental health professional will be available monthly for confidential counseling.,Counseling Services,Low
+404,We will conduct quarterly awareness workshops and provide mental health resources to all employees.,Awareness Initiatives,Low
+405,HR will introduce this policy to all new hires and during any future updates.,Policy Communication,Low
+406,We encourage employees facing work-life issues to seek help from professionals or speak to their managers.,Communication Encouragement,Low
+407,Managers must identify distressed employees and either intervene or guide them toward appropriate support.,Manager Responsibility,Medium
+408,"Managers must mediate conflicts, resolve work-related stress, and escalate serious issues to HR.",Manager Escalation,Medium
+409,Anonymous quarterly mental health surveys will be conducted by HR to assess employee wellness.,Mental Health Survey,Low
+410,We will hold monthly peer support sessions for at-risk groups like new parents or retirees.,Peer Support Sessions,Low
+411,Coworkers are encouraged to support one another and create a culture of mutual care.,Peer Support Culture,Low
+412,"Recognition, mentorship, and learning programs will help reduce stress and enhance growth.",Growth and Recognition,Low
+413,Employees with mental conditions will receive fair treatment and reasonable accommodations.,Legal Compliance & Fairness,High
+414,We will not compel disclosure of any mental health information unless the employee voluntarily shares it.,Privacy and Disclosure,High
+415,The effectiveness of this policy will be continuously evaluated and revised with stakeholder input.,Continuous Improvement,Low
+416,All visitors must register upon arrival and may be required to provide valid identification.,Visitor Registration,Low
+417,Visitors must state their purpose of visit and identify the employee they are meeting with.,Visitor Identification,Low
+418,Reception will verify the appointment or contact the concerned employee before allowing entry.,Appointment Verification,Low
+419,"In designated areas, visitors must be escorted by a company employee at all times.",Escort Requirement,Medium
+420,Escorts are responsible for ensuring visitors do not access restricted areas.,Escort Responsibility,Medium
+421,Restricted areas such as server rooms and production floors are off-limits to visitors unless authorized.,Restricted Access,High
+422,Visitors must wear temporary identification badges throughout their visit.,Visitor ID Badges,Low
+423,Visitors must return their badges before leaving the premises.,Badge Return,Low
+424,"Visitors are required to follow all company safety and security procedures, including emergency protocols.",Visitor Safety Protocol,Medium
+425,"In emergencies, visitors must follow company personnel instructions.",Emergency Instructions,Medium
+426,Visitors must behave professionally and respectfully while on company property.,Visitor Conduct,Low
+427,"Misconduct, harassment, or disruptive behavior will not be tolerated from visitors.",Visitor Misconduct,Medium
+428,Visitors must maintain confidentiality regarding any sensitive or proprietary information.,Visitor Confidentiality,High
+429,"Visitors must comply with all relevant company policies including safety, conduct, and security.",Policy Compliance,Medium
+430,Photography or recording is prohibited unless expressly authorized by company management.,Photography Restriction,Medium
+431,Visitors are only allowed during regular business hours unless management gives special approval.,Visiting Hours,Low
+432,Unaccompanied minors are generally not allowed on the premises for safety reasons.,Unaccompanied Minors,Low
+433,Non-compliance with the visitor policy may lead to the visitor being asked to leave immediately.,Policy Enforcement,Medium
+434,Employees may face verbal reprimands for minor visitor policy violations.,Employee Discipline - Minor,Medium
+435,Severe visitor policy violations by employees may lead to termination.,Employee Discipline - Severe,High
+436,All employees are entitled to a safe working environment and must understand this workplace violence policy.,Workplace Safety Commitment,Low
+437,"This policy applies to all employees, contractors, clients, public visitors, and anyone interacting with workers.",Policy Applicability,Low
+438,"Any form of workplace violence, including threats and aggression, is strictly prohibited.",Violence Prohibition,High
+439,"Inflicting bodily harm, using threatening language, or acting aggressively toward others is forbidden.",Aggressive Behavior Ban,High
+440,Employees may not carry weapons on company premises or while on company business.,Weapon Ban,High
+441,Acts linked to sexual harassment or domestic abuse are also considered workplace violence.,Harassment/Abuse Violence Clause,High
+442,Employees must report any harmful conditions immediately to HR or a supervisor.,Incident Reporting Duty,Medium
+443,Anonymous reports are accepted and all incidents will be investigated appropriately.,Anonymous Reporting & Investigation,Medium
+444,Investigation outcomes will be shared with involved parties as needed.,Investigation Transparency,Low
+445,The company will proactively act upon any signs of a potentially hostile situation.,Preventive Action Protocol,Medium
+446,Background checks are conducted to reduce risk when hiring.,Hiring Background Checks,Medium
+447,Annual facility inspections are conducted to assess and correct workplace violence risks.,Facility Risk Audits,Medium
+448,Employees must use common sense and report any conduct that could suggest potential danger.,Proactive Reporting Expectation,Medium
+449,"Concerning behaviors include talking about weapons, sudden performance drops, or threatening language.",Warning Behavior Indicators,High
+450,HR will identify employees at risk of being targeted and create response plans.,At-Risk Employee Strategy,High
+451,"In case of an encounter with an armed person, employees should remain calm and avoid confrontation.",Armed Encounter Protocol,High
+452,Employees should notify supervisors discreetly and cooperate during emergencies.,Emergency Communication Protocol,High
+453,"Any act of workplace violence may lead to termination, removal, or criminal prosecution.",Disciplinary Action for Violence,High
+454,[Company Name] is committed to a fair workplace and prohibits nepotism to prevent favoritism and conflicts of interest.,Anti-Nepotism Policy Statement,Medium
+455,"This policy defines nepotism, outlines prohibited relationships, and provides guidelines to address conflicts of interest.",Nepotism Policy Objective,Low
+456,"The policy applies to all employees, including full-time, part-time, temporary, contract staff, interns, and volunteers.",Policy Applicability,Low
+457,Nepotism is defined as preferential treatment toward relatives or close personal relations in employment decisions.,Definition of Nepotism,Medium
+458,"Prohibited relationships under this policy include spouses, domestic partners, immediate and extended family members.",Prohibited Relationships,Medium
+459,Employees must disclose personal relationships that could create a conflict of interest. Failure to do so may lead to disciplinary action.,Conflict of Interest Disclosure Requirement,High
+460,Supervisors and hiring managers must disclose personal relationships during recruitment and hiring processes.,Recruitment Conflict Disclosure,Medium
+461,Recruitment and hiring decisions must be based solely on merit and qualifications.,Merit-Based Hiring Clause,Low
+462,"Transfers and promotions must be impartial, and employees must disclose personal relationships that may affect these decisions.",Transfer and Promotion Fairness Clause,Medium
+463,Supervisors cannot directly oversee or evaluate employees with whom they have a prohibited relationship.,Reporting Structure Restriction,High
+464,"Disciplinary actions for policy violations may include warnings, reassignment, demotion, or termination.",Disciplinary Measures for Nepotism,High
+465,Exceptions to the nepotism policy may be considered only with approval from the designated authority.,Exception Clause,Medium
+466,"The policy will be reviewed annually and updated as necessary, with updates communicated to all employees.",Review and Update Clause,Low
+467,Nepotism refers to favoritism shown toward family or close personal relationships within the workplace.,Nepotism - Definition Clause,Low
+468,A conflict of interest occurs when personal relationships compromise or appear to compromise professional judgment.,Conflict of Interest - Definition Clause,Medium
+469,All software and tools purchases must be approved by the designated department to ensure alignment with strategic goals and security standards.,Software Procurement Policy Statement,Medium
+470,"Employees must submit software/tool purchase requests detailing purpose, benefits, compatibility, and cost estimates.",Purchase Request Procedure,Low
+471,"The approving authority will evaluate requests based on strategic fit, budget, and infrastructure compatibility.",Software Approval Process,Medium
+472,Purchases must align with the department’s approved budget; excess requires higher-level financial approval.,Budget Approval Requirement,Medium
+473,The IT department must assess all software/tools for data security and compliance before approval.,Security and Compliance Evaluation,High
+474,"Vendors should be evaluated on reliability, support services, reputation, and contract terms.",Vendor Evaluation Clause,Medium
+475,"Licensing terms, usage rights, and ownership must be defined before purchase, and tracked properly.",Licensing and Ownership Requirement,Medium
+476,Vendor training and support availability must be reviewed to ensure employees are equipped to use new tools.,Training and Support Availability,Low
+477,"Maintain detailed records of software/tool purchases including invoices, licenses, and communications.",Procurement Documentation and Record-Keeping,Medium
+478,A process should be in place for tracking renewals and terminating unused licenses.,Renewal and Termination Management,Medium
+479,Non-compliance with the policy may lead to disciplinary action and affect future purchase approvals.,Non-Compliance Consequences Clause,High
+480,The policy will be reviewed annually and updated as required with appropriate authority approval.,Policy Review and Amendment Clause,Low
+481,[Company Name] prohibits all forms of bribery and corruption internally and in dealings with external parties.,Anti-Bribery Policy Statement,High
+482,"Employees must not offer, give, solicit, or receive anything of value to improperly influence decisions or actions.",Prohibited Bribery Conduct,High
+483,"Gifts, hospitality, and entertainment must be reasonable, proportionate, and must not compromise judgment.",Gifts and Hospitality Guidelines,Medium
+484,Facilitation or “grease” payments to expedite government services are strictly prohibited.,Facilitation Payment Prohibition,High
+485,Due diligence must be conducted on business partners to ensure compliance with anti-corruption standards.,Third-Party Due Diligence Clause,High
+486,Employees are encouraged to report suspected violations anonymously without fear of retaliation.,Whistleblower Protection and Reporting,High
+487,Violations of this policy will be investigated and may result in disciplinary or legal action.,Investigation and Disciplinary Clause,High
+488,Regular training on anti-bribery standards will be provided to all employees.,Compliance Training Requirement,Medium
+489,"The company will maintain records of training, due diligence, and investigations for compliance.",Compliance Record-Keeping Clause,Medium
+490,This policy will be reviewed and updated annually to maintain relevance and legal compliance.,Policy Review and Amendment,Low
+491,"The company supports employees’ right to become parents and offers maternity leave for pregnancy, childbirth, or childcare.",Maternity Leave Policy Statement,Low
+492,Maternity leave is available to all eligible female employees as per legal guidelines.,Maternity Leave Eligibility Clause,Medium
+493,"Maternity leave may be fully paid, partially paid, or unpaid depending on applicable laws.",Maternity Leave Payment Clause,Medium
+494,Employees may begin maternity leave before or after the due date based on legal provisions.,Maternity Leave Start Timing,Low
+495,Pregnant employees are entitled to reasonable paid time off for prenatal care.,Prenatal Care Leave Clause,Low
+496,Employees’ positions and benefits will remain unaffected during maternity leave.,Employment Protection During Maternity Leave,Low
+497,"Employees may request unpaid leave extensions on medical or personal grounds, subject to company approval.",Maternity Leave Extension Clause,Medium
+498,Failure to return after leave without extension or notification will be considered a voluntary resignation.,No-Show Post-Leave Clause,Medium
+499,Employees returning from maternity leave may be supported with flexible hours or work-from-home options.,Return to Work Flexibility Clause,Low
+500,Adoptive mothers are entitled to maternity leave and the same procedural and benefit standards.,Adoption and Maternity Leave Clause,Low
+501,Employees must notify their supervisor and HR in writing in advance of their expected due or adoption date.,Maternity Leave Notification Procedure,Low
+502,Employees must submit due date documentation and maternity leave start preferences through official paperwork.,Maternity Leave Documentation Clause,Low
+503,Employees must meet with supervisors to agree on communication during the leave period.,Communication During Leave Clause,Low
+504,Early labor may adjust maternity leave dates through official notification.,Early Labor Adjustment Clause,Low
+505,This policy supports employees in their ability to adequately self-care during their period and menopause without using sick leave.,Menstrual and Menopause Support Clause,Low
+506,The policy aims to remove the stigma and taboo surrounding menstruation and menopause.,Anti-Stigma Clause,Low
+507,Employees experiencing symptoms of menstruation and menopause may be allowed to work from home.,Flexible Work Option for Menstruation/Menopause,Low
+508,"Employees may remain in the workplace with accommodations for comfort, such as access to a quiet resting area.",In-Office Rest Provisions Clause,Low
+509,Employees may take up to 12 non-cumulative paid leave days per calendar year due to menstruation or menopause symptoms.,Paid Leave for Menstruation/Menopause Clause,Medium
+510,No medical certificate is required to avail of menstrual or menopause leave.,Leave Without Medical Proof Clause,Medium
+511,Work-from-home flexibility for menstruation and menopause should be integrated into the company's remote work policy.,Remote Work Policy Alignment Clause,Low
