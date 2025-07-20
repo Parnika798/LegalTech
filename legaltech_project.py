@@ -106,18 +106,18 @@ with st.sidebar:
     st.markdown("### How It Works")
     st.caption("This tool uses TF-IDF and Logistic Regression to detect risk levels in HR or legal policy clauses.")
     st.markdown("""
-    - 🔍 Analyzes legal/HR terms
-    - 📏 Considers clause complexity
-    - 🎯 Flags clauses as High, Medium, or Low Risk
+    - Analyzes legal/HR terms
+    - Considers clause complexity
+    - Flags clauses as High, Medium, or Low Risk
     """)
 
     st.markdown("---")
     st.markdown("### Value for HR/Legal Teams")
     st.caption("Save time, reduce oversight, and improve compliance clarity.")
     st.markdown("""
-    - 🚨 Highlight risky content early
-    - ⚖️ HR-friendly summaries (no legalese)
-    - 📊 Quick overview of clause-level risks
+    - Highlight risky content early
+    - HR-friendly summaries 
+    - Quick overview of clause-level risks
     """)
 
 # -------------------
