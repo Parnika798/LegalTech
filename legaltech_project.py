@@ -82,10 +82,26 @@ st.title("📄 Clause Risk Level Analyzer")
 st.markdown("Upload a `.txt` file with **one clause per paragraph** to analyze.")
 
 with st.sidebar:
+    st.markdown("## 🤖 What This Tool Does")
     st.info("""
-This tool uses **TF-IDF** and **Logistic Regression** to analyze legal clauses and flag potential risk.
-Each clause is evaluated based on key legal/HR terms and clause complexity.
-""")
+Uses **TF-IDF + Logistic Regression** to flag legal/HR policy clauses as:
+- 🟥 High Risk  
+- 🟧 Medium Risk  
+- 🟩 Low Risk  
+
+Each clause is analyzed based on legal terms and complexity (length, structure).
+    """)
+
+    st.markdown("---")
+
+    st.markdown("## 💡 Why It Matters")
+    st.success("""
+- ⚖️ Spot risky clauses before they escalate  
+- ⏱️ Speed up policy & contract reviews  
+- 🧠 HR-friendly summaries (no legal jargon)  
+- 📊 Bring consistency to manual reviews  
+    """)
+
 
 uploaded_file = st.file_uploader("📂 Upload clause document (.txt)", type=["txt"])
 
