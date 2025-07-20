@@ -107,7 +107,13 @@ if uploaded_file:
     content = uploaded_file.read().decode("utf-8")
     # Paragraph-wise clause extraction
     raw_clauses = re.split(r'\n\s*\n', content.strip())
-    clauses = [clause.replace('\n', ' ').strip() for clause in raw_clauses if clause.strip()]
+        clauses = []
+    for clause in raw_clauses:
+        clause_text = clause.replace('\n', ' ').strip()
+        word_count = len(clause_text.split())
+        if word_count >= 4:  # Skip headings and very short text
+            clauses.append(clause_text)
+
 
     if st.button("🔍 Analyze Clauses"):
         st.subheader("📊 Risk Analysis Results")
