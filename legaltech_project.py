@@ -4,6 +4,7 @@ import numpy as np
 import re
 import spacy
 import plotly.express as px
+import plotly.figure_factory as ff
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -14,8 +15,6 @@ from scipy.sparse import hstack, csr_matrix
 import base64
 from io import StringIO
 import PyPDF2
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # -------------------
 # Load spaCy
@@ -134,6 +133,13 @@ with st.sidebar:
     st.markdown("## Model Performance")
     st.metric("Accuracy", f"{acc:.2%}")
     st.metric("F1 Score", f"{f1:.2f}")
+
+    # Plotly Confusion Matrix
+    z = cm.tolist()
+    x = list(le.classes_)
+    y = list(le.classes_)
+    fig_cm = ff.create_annotated_heatmap(z=z, x=x, y=y, colorscale='RdYlGn')
+    st.plotly_chart(fig_cm, use_container_width=True)
 
 # -------------------
 # Risk level color
