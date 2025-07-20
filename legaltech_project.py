@@ -1,143 +1,65 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 import re
-import spacy
-import lime
-import lime.lime_text
-from sklearn.linear_model import LogisticRegression
+import pandas as pd
+import joblib
+
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.pipeline import make_pipeline
-from sklearn.metrics import classification_report, accuracy_score
-from imblearn.over_sampling import RandomOverSampler
-from scipy.sparse import hstack
+from sklearn.linear_model import LogisticRegression
 
-# =====================
-# Load spaCy model
-# =====================
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    import spacy.cli
-    spacy.cli.download("en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+# Load model and vectorizer
+model = joblib.load("model/logreg_model.pkl")
+vectorizer = joblib.load("model/tfidf_vectorizer.pkl")
 
-# =====================
-# Cleaning Functions
-# =====================
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r'[^a-z\s]', '', text)
-    return re.sub(r'\s+', ' ', text).strip()
-
-def tokenize_and_lemmatize(text):
-    doc = nlp(text)
-    return " ".join([token.lemma_ for token in doc if not token.is_stop and not token.is_punct])
-
-# =====================
-# Load and preprocess dataset
-# =====================
-df = pd.read_csv("Clause Dataset.csv", encoding='latin-1')
-df = df[['Clause Text', 'Risk Level']].dropna()
-df['Cleaned Clause'] = df['Clause Text'].astype(str).apply(clean_text)
-df['Lemmatized Clause'] = df['Cleaned Clause'].apply(tokenize_and_lemmatize)
-df['clause_len'] = df['Lemmatized Clause'].apply(lambda x: len(x.split()))
-df = df[df['Risk Level'].map(df['Risk Level'].value_counts()) > 1]
-
-# Label encode
-label_encoder = LabelEncoder()
-y_risk = label_encoder.fit_transform(df['Risk Level'])
-
-# =====================
-# TF-IDF + Clause Length Features
-# =====================
-tfidf = TfidfVectorizer(max_features=5000)
-X_tfidf = tfidf.fit_transform(df['Lemmatized Clause'])
-X_final = hstack([X_tfidf, np.array(df['clause_len']).reshape(-1, 1)])
-
-# =====================
-# Split and balance
-# =====================
-X_train, X_test, y_train, y_test, text_train, text_test = train_test_split(
-    X_final, y_risk, df['Lemmatized Clause'], test_size=0.2, stratify=y_risk, random_state=42
-)
-ros = RandomOverSampler(random_state=42)
-X_train_bal, y_train_bal = ros.fit_resample(X_train, y_train)
-
-# =====================
-# Train final model
-# =====================
-logreg = LogisticRegression(max_iter=1000, class_weight='balanced')
-logreg.fit(X_train_bal, y_train_bal)
-
-# Evaluation (optional log)
-y_pred = logreg.predict(X_test)
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
-
-# =====================
-# LIME setup
-# =====================
-lime_vectorizer = TfidfVectorizer(max_features=5000)
-lime_pipeline = make_pipeline(lime_vectorizer, LogisticRegression(max_iter=1000, class_weight='balanced'))
-lime_pipeline.fit(df['Lemmatized Clause'], y_risk)
-explainer = lime.lime_text.LimeTextExplainer(class_names=label_encoder.classes_)
-
-# =====================
-# Streamlit UI
-# =====================
 st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
-st.title("📄 Clause Risk Level Analyzer")
-st.markdown("""
-Upload a text document containing **multiple legal clauses** (one clause per line).
-This tool will:
-- Predict **Risk Level** for each clause
-- Show **LIME explanations** and **simplified summaries** of why that prediction was made
-""")
 
-with st.sidebar:
-    st.header("ℹ️ About")
-    st.markdown("This tool uses a Logistic Regression model trained on TF-IDF vectors from legal clauses, along with LIME to explain predictions.")
+st.title("📄 Clause Risk Analyzer")
+st.markdown("Upload a policy document (e.g., grievance policy), and the system will highlight risky clauses with HR-friendly summaries.")
 
-uploaded_file = st.file_uploader("📂 Upload a .txt document", type=["txt"])
+# Color map for risk level
+color_map = {
+    "Low": "#d4edda",      # Green
+    "Medium": "#fff3cd",   # Yellow
+    "High": "#f8d7da"      # Red
+}
+
+# Sample HR insight generator (template-based)
+def get_hr_insight(clause, risk):
+    if risk == "High":
+        if "termination" in clause.lower() or "suspension" in clause.lower():
+            return "Mentions termination/suspension — review disciplinary process."
+        elif "retaliation" in clause.lower():
+            return "Clause involves retaliation risks."
+        elif "confidentiality" in clause.lower():
+            return "Clause may involve sensitive or private employee information."
+        else:
+            return "Contains potential legal or policy risks. Needs thorough HR review."
+    elif risk == "Medium":
+        return "May involve procedural ambiguity or rights. HR attention advised."
+    else:
+        return "Clause appears safe or informational."
+
+# Paragraph tokenizer
+def split_into_paragraphs(text):
+    paragraphs = [p.strip() for p in re.split(r'\n{2,}', text) if p.strip()]
+    return paragraphs
+
+uploaded_file = st.file_uploader("Upload a policy text file (.txt)", type=["txt"])
 
 if uploaded_file:
-    content = uploaded_file.read().decode("utf-8")
-    clauses = [clause.strip() for clause in content.split("\n") if clause.strip()]
+    text = uploaded_file.read().decode("utf-8")
+    paragraphs = split_into_paragraphs(text)
 
-    if st.button("🔍 Analyze Clauses"):
-        st.subheader("🔎 Results")
-        for i, clause in enumerate(clauses):
-            cleaned = clean_text(clause)
-            lemmatized = tokenize_and_lemmatize(cleaned)
-            pred = lime_pipeline.predict([lemmatized])[0]
-            pred_label = label_encoder.inverse_transform([pred])[0]
+    st.markdown("### 📘 Clause-Level Risk Analysis")
+    for idx, clause in enumerate(paragraphs, start=1):
+        X = vectorizer.transform([clause])
+        risk_pred = model.predict(X)[0]
+        hr_summary = get_hr_insight(clause, risk_pred)
 
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                st.markdown(f"### 🧾 Clause {i+1}")
-            with col2:
-                st.markdown(f"**Predicted Risk Level:** `{pred_label}`")
-
-            st.markdown(f"> {clause}")
-
-            with st.expander("🔍 LIME Explanation + Summary"):
-                explanation = explainer.explain_instance(
-                    lemmatized, lime_pipeline.predict_proba, num_features=10
-                )
-                st.markdown("#### 🔍 Top Weighted Features:")
-                for word, weight in explanation.as_list():
-                     st.markdown(f"- **{word}**: `{round(weight, 3)}`")
-
-                top_words = [term for term, weight in explanation.as_list() if weight > 0][:5]
-                simplified = (
-                    f"The model focused on these keywords for the risk prediction: **{', '.join(top_words)}**"
-                    if top_words else "No strong keywords were found."
-                )
-                st.info(simplified)
-
-        st.success("✅ Analysis complete! Expand the boxes to explore why each clause received its risk label.")
-
-
+        st.markdown(f"""
+        <div style="background-color:{color_map[risk_pred]}; padding:15px; border-radius:8px; margin-bottom: 15px;">
+            <strong>Clause {idx}:</strong><br>
+            <em>{clause}</em><br><br>
+            <strong>Risk Level:</strong> <span style="color:black;">{risk_pred}</span><br>
+            <strong>HR Insight:</strong> {hr_summary}
+        </div>
+        """, unsafe_allow_html=True)
