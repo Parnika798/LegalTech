@@ -84,7 +84,7 @@ st.markdown("Upload a `.txt` file with **one clause per paragraph** to analyze."
 with st.sidebar:
     st.info("""
 This tool uses **TF-IDF** and **Logistic Regression** to analyze legal clauses and flag potential risk.
-Each clause is evaluated based on key terms and length.
+Each clause is evaluated based on key legal/HR terms and clause complexity.
 """)
 
 uploaded_file = st.file_uploader("📂 Upload clause document (.txt)", type=["txt"])
@@ -105,31 +105,24 @@ def color_risk(label):
 # -------------------
 if uploaded_file:
     content = uploaded_file.read().decode("utf-8")
-    # Paragraph-wise clause extraction
     raw_clauses = re.split(r'\n\s*\n', content.strip())
     clauses = []
+
     for clause in raw_clauses:
         clause_text = clause.replace('\n', ' ').strip()
 
-        # Remove extra spaces and ensure it's non-empty
+        # Remove empty, short or title-like entries
         if not clause_text or len(clause_text.split()) < 5:
             continue
 
-        # Check if it's mostly title case (initial capital words and short)
         title_case_ratio = sum(w.istitle() for w in clause_text.split()) / len(clause_text.split())
         is_title_like = title_case_ratio > 0.8 and len(clause_text.split()) <= 6
-
-        # Must contain a sentence-ending punctuation to qualify as a valid clause
         contains_sentence_end = any(p in clause_text for p in ['.', '!', '?'])
 
-        # Skip if likely a heading or incomplete fragment
         if is_title_like or not contains_sentence_end:
             continue
 
         clauses.append(clause_text)
-
-
-
 
     if st.button("🔍 Analyze Clauses"):
         st.subheader("📊 Risk Analysis Results")
@@ -142,7 +135,6 @@ if uploaded_file:
             x_input = vectorizer.transform([lemmatized])
             x_input = hstack([x_input, np.array([[clause_len]])])
 
-            # Convert to CSR format before slicing
             if not isinstance(x_input, csr_matrix):
                 x_input = x_input.tocsr()
 
@@ -156,16 +148,23 @@ if uploaded_file:
             # HR-friendly explanation
             tfidf_features = vectorizer.get_feature_names_out()
             tfidf_part = x_input[:, :-1].toarray().flatten()
-
             top_indices = tfidf_part.argsort()[-5:][::-1]
             top_keywords = [tfidf_features[j] for j in top_indices if tfidf_part[j] > 0]
 
             if top_keywords:
-                summary = f"The model associated this clause with **{risk_label}** risk because of keywords like: **{', '.join(top_keywords)}**."
+                explanation = (
+                    f"The system identified words like **{', '.join(top_keywords)}**, which are often found "
+                    f"in clauses dealing with **disciplinary actions, legal obligations, or policy violations**. "
+                    f"These words contributed to the **{risk_label}** risk classification."
+                )
             else:
-                summary = f"The model found insufficient risk-related terms, but predicted **{risk_label}** based on length or other statistical patterns."
+                explanation = (
+                    f"The system did not find strong legal or HR-sensitive terms, but based on the **length** and "
+                    f"statistical patterns, it assigned a **{risk_label}** risk label."
+                )
 
-            st.info(summary)
+            st.info(explanation)
 
-        st.success("✅ Completed! Scroll through to view all predictions.")
+        st.success("✅ All clauses analyzed. Scroll down for results.")
+
 
