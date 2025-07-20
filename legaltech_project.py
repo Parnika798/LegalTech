@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import re
 import spacy
+import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -75,49 +76,48 @@ model.fit(X_train_bal, y_train_bal)
 # -------------------
 # Streamlit UI
 # -------------------
-st.set_page_config(page_title="Clause Risk Analyzer", layout="centered")
+st.set_page_config(page_title="📑 Clause Risk Scanner", layout="centered")
 st.markdown("""
     <style>
         .block-container {
             padding-top: 2rem;
             padding-bottom: 2rem;
+            background-color: #fdfdfd;
         }
         .stButton button {
-            background-color: #1f77b4;
+            background-color: #2c3e50;
             color: white;
             font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
         }
-        .stMarkdown h1 {
-            font-size: 2.2rem;
+        h1, h2, h3, h4, h5 {
             color: #2c3e50;
+            font-family: 'Segoe UI', sans-serif;
         }
-        .stMarkdown h3 {
-            color: #34495e;
+        .sidebar .sidebar-content {
+            background-color: #f8f9fa;
         }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("Clause Risk Analyzer")
-st.markdown("Upload your policy clauses as a `.txt` or `.pdf` file. Each clause should be in a separate paragraph.")
+st.title("HR ComplianceScope")
+st.markdown("Analyze uploaded policy clauses and instantly classify them as High, Medium, or Low Risk.")
 
 with st.sidebar:
-    st.markdown("### How It Works")
-    st.caption("This tool uses TF-IDF and Logistic Regression to detect risk levels in HR or legal policy clauses.")
+    st.markdown("## ⚙️ How It Works")
+    st.caption("This scanner uses TF-IDF + Logistic Regression to assess legal/HR clauses.")
     st.markdown("""
-    - Analyzes legal/HR terms
-    - Considers clause complexity
-    - Flags clauses as High, Medium, or Low Risk
+    - 🔎 Recognizes sensitive legal/HR terms
+    - 📐 Evaluates clause length and structure
+    - 🧠 Offers clear HR-friendly summaries
     """)
-
     st.markdown("---")
-    st.markdown("### Value for HR/Legal Teams")
-    st.caption("Save time, reduce oversight, and improve compliance clarity.")
-    st.markdown("""
-    - Highlight risky content early
-    - HR-friendly summaries 
-    - Quick overview of clause-level risks
+    st.markdown("## 🎯 Why Use This")
+    st.success("""
+    - 🚨 Identify risky content early
+    - 📋 Speed up compliance reviews
+    - 🤝 Reduce manual oversight errors
     """)
 
 # -------------------
@@ -162,12 +162,12 @@ def read_pdf(file):
 if "analyzed_results" not in st.session_state:
     st.session_state.analyzed_results = []
 
-uploaded_file = st.file_uploader("Upload Clause File", type=["txt", "pdf"])
+uploaded_file = st.file_uploader("📁 Upload Clause File", type=["txt", "pdf"])
 if uploaded_file:
     content = read_pdf(uploaded_file) if uploaded_file.name.endswith(".pdf") else uploaded_file.read().decode("utf-8")
     clauses = extract_clauses(content)
 
-    if st.button("Analyze Clauses"):
+    if st.button("🔍 Analyze Clauses"):
         st.session_state.analyzed_results.clear()
         summary = {label: 0 for label in le.classes_}
 
@@ -194,6 +194,13 @@ if uploaded_file:
 
             st.session_state.analyzed_results.append((i+1, clause, label, explanation))
 
+        # Pie Chart
+        st.subheader("📊 Risk Level Distribution")
+        fig, ax = plt.subplots()
+        ax.pie(summary.values(), labels=summary.keys(), autopct='%1.1f%%', startangle=140, colors=["#e74c3c", "#f39c12", "#27ae60"])
+        ax.axis('equal')
+        st.pyplot(fig)
+
         st.markdown(f"### Summary of {len(clauses)} Clauses")
         for l in le.classes_:
             st.markdown(f"- {l} Risk: `{summary[l]}`")
@@ -202,7 +209,7 @@ if uploaded_file:
 # Show Results with Filter
 # -------------------
 if st.session_state.analyzed_results:
-    choice = st.selectbox("Filter by Risk", ["All"] + list(le.classes_))
+    choice = st.selectbox("🎛️ Filter by Risk", ["All"] + list(le.classes_))
     for idx, text, label, explanation in st.session_state.analyzed_results:
         if choice != "All" and label != choice:
             continue
@@ -212,3 +219,4 @@ if st.session_state.analyzed_results:
         st.markdown(f"<div style='background:#f4f6f7;padding:10px;border-left:4px solid #ccc;'>{explanation}</div>", unsafe_allow_html=True)
 
     st.success("✅ Review complete.")
+
