@@ -142,6 +142,9 @@ def read_pdf(file):
 # -------------------
 # Analyze Clauses
 # -------------------
+if "analyzed_results" not in st.session_state:
+    st.session_state.analyzed_results = []
+
 if uploaded_file:
     if uploaded_file.name.endswith(".pdf"):
         content = read_pdf(uploaded_file)
@@ -152,10 +155,9 @@ if uploaded_file:
 
     if st.button("🔍 Analyze Clauses"):
         st.subheader("📊 Risk Analysis Results")
-
+        st.session_state.analyzed_results.clear()
         risk_counter = {label: 0 for label in le.classes_}
 
-        results = []
         for i, clause in enumerate(clauses):
             cleaned = clean_text(clause)
             lemmatized = lemmatize(cleaned)
@@ -187,25 +189,27 @@ if uploaded_file:
                     f"statistical patterns, it assigned a **{risk_label}** risk label."
                 )
 
-            results.append((i+1, clause, risk_label, explanation))
+            st.session_state.analyzed_results.append((i+1, clause, risk_label, explanation))
 
-        # Summary stats
         st.markdown("### 📈 Summary")
         st.markdown(f"- Total Clauses: `{len(clauses)}`")
         for label in le.classes_:
             st.markdown(f"- {label} Risk: `{risk_counter[label]}`")
 
-        # Filter option
-        filter_option = st.selectbox("🔎 Filter by Risk Level", options=["All"] + list(le.classes_))
+# -------------------
+# Filtering UI
+# -------------------
+if st.session_state.analyzed_results:
+    filter_option = st.selectbox("🔎 Filter by Risk Level", options=["All"] + list(le.classes_))
 
-        for idx, clause, risk_label, explanation in results:
-            if filter_option != "All" and risk_label != filter_option:
-                continue
+    for idx, clause, risk_label, explanation in st.session_state.analyzed_results:
+        if filter_option != "All" and risk_label != filter_option:
+            continue
 
-            st.markdown(f"---\n### 🧾 Clause {idx}")
-            st.markdown(f"**Original Clause:** {clause}")
-            st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
-            st.info(explanation)
+        st.markdown(f"---\n### 🧾 Clause {idx}")
+        st.markdown(f"**Original Clause:** {clause}")
+        st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
+        st.info(explanation)
 
-        st.success("✅ All clauses analyzed. Scroll down for results.")
+    st.success("✅ Filter applied. Scroll for results.")
 
