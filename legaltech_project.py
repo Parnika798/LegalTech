@@ -24,7 +24,7 @@ from imblearn.over_sampling import RandomOverSampler
 from scipy.sparse import hstack
 
 # Load and preprocess data
-df = pd.read_csv("/content/Clause Dataset.csv", encoding='latin-1')
+df = pd.read_csv("Clause Dataset.csv", encoding='latin-1')
 df = df[['Clause Text', 'Clause Type', 'Risk Level']]
 
 # Cleaning
