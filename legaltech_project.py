@@ -110,15 +110,24 @@ if uploaded_file:
     clauses = []
     for clause in raw_clauses:
         clause_text = clause.replace('\n', ' ').strip()
-        word_count = len(clause_text.split())
 
-        # Heuristic filters for likely headings
-        is_too_short = word_count <= 4
-        is_title_case = clause_text.istitle()
-        lacks_punctuation = not any(p in clause_text for p in ['.', ',', ';', ':'])
+        # Remove extra spaces and ensure it's non-empty
+        if not clause_text or len(clause_text.split()) < 5:
+            continue
 
-        if not (is_too_short and is_title_case and lacks_punctuation):
-            clauses.append(clause_text)
+        # Check if it's mostly title case (initial capital words and short)
+        title_case_ratio = sum(w.istitle() for w in clause_text.split()) / len(clause_text.split())
+        is_title_like = title_case_ratio > 0.8 and len(clause_text.split()) <= 6
+
+        # Must contain a sentence-ending punctuation to qualify as a valid clause
+        contains_sentence_end = any(p in clause_text for p in ['.', '!', '?'])
+
+        # Skip if likely a heading or incomplete fragment
+        if is_title_like or not contains_sentence_end:
+            continue
+
+        clauses.append(clause_text)
+
 
 
 
