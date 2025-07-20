@@ -188,7 +188,7 @@ if uploaded_file:
     content = read_pdf(uploaded_file) if uploaded_file.name.endswith(".pdf") else uploaded_file.read().decode("utf-8")
     clauses = extract_clauses(content)
 
-    if st.button("\ud83d\udd0d Analyze Clauses"):
+    if st.button("Analyze Clauses"):
         st.session_state.analyzed_results.clear()
         summary = {label: 0 for label in le.classes_}
 
