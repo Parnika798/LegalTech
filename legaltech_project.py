@@ -111,8 +111,15 @@ if uploaded_file:
     for clause in raw_clauses:
         clause_text = clause.replace('\n', ' ').strip()
         word_count = len(clause_text.split())
-        if word_count >= 4:  # Skip headings and very short text
+
+        # Heuristic filters for likely headings
+        is_too_short = word_count <= 4
+        is_title_case = clause_text.istitle()
+        lacks_punctuation = not any(p in clause_text for p in ['.', ',', ';', ':'])
+
+        if not (is_too_short and is_title_case and lacks_punctuation):
             clauses.append(clause_text)
+
 
 
     if st.button("🔍 Analyze Clauses"):
