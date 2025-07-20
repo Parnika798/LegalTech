@@ -1,65 +1,106 @@
 import streamlit as st
-import re
 import pandas as pd
+import numpy as np
+import re
+import spacy
 import joblib
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
+from scipy.sparse import hstack
 
-# Load model and vectorizer
-model = joblib.load("model/logreg_model.pkl")
-vectorizer = joblib.load("model/tfidf_vectorizer.pkl")
+# =======================
+# Load spaCy model
+# =======================
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    import spacy.cli
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
-st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
+# =======================
+# Text preprocessing
+# =======================
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z\s]', '', text)
+    return re.sub(r'\s+', ' ', text).strip()
 
-st.title("📄 Clause Risk Analyzer")
-st.markdown("Upload a policy document (e.g., grievance policy), and the system will highlight risky clauses with HR-friendly summaries.")
+def tokenize_and_lemmatize(text):
+    doc = nlp(text)
+    return " ".join([token.lemma_ for token in doc if not token.is_stop and not token.is_punct])
 
-# Color map for risk level
-color_map = {
-    "Low": "#d4edda",      # Green
-    "Medium": "#fff3cd",   # Yellow
-    "High": "#f8d7da"      # Red
+def generate_hr_summary(risk):
+    if risk == "High":
+        return "This clause contains high-risk language or lacks protections. HR should review closely."
+    elif risk == "Medium":
+        return "This clause contains moderate concerns. May need revision."
+    else:
+        return "Clause appears standard and low-risk."
+
+risk_colors = {
+    "Low": "#d4edda",     # Green
+    "Medium": "#fff3cd",  # Yellow
+    "High": "#f8d7da"     # Red
 }
 
-# Sample HR insight generator (template-based)
-def get_hr_insight(clause, risk):
-    if risk == "High":
-        if "termination" in clause.lower() or "suspension" in clause.lower():
-            return "Mentions termination/suspension — review disciplinary process."
-        elif "retaliation" in clause.lower():
-            return "Clause involves retaliation risks."
-        elif "confidentiality" in clause.lower():
-            return "Clause may involve sensitive or private employee information."
-        else:
-            return "Contains potential legal or policy risks. Needs thorough HR review."
-    elif risk == "Medium":
-        return "May involve procedural ambiguity or rights. HR attention advised."
-    else:
-        return "Clause appears safe or informational."
+# =======================
+# Load Model and Vectorizer
+# =======================
+vectorizer = joblib.load("tfidf_vectorizer.pkl")
+model = joblib.load("logreg_model.pkl")
+label_encoder = joblib.load("label_encoder.pkl")
 
-# Paragraph tokenizer
-def split_into_paragraphs(text):
-    paragraphs = [p.strip() for p in re.split(r'\n{2,}', text) if p.strip()]
-    return paragraphs
+# =======================
+# Streamlit App
+# =======================
+st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
+st.title("📄 Clause Risk Level Analyzer")
 
-uploaded_file = st.file_uploader("Upload a policy text file (.txt)", type=["txt"])
+st.markdown("""
+Upload a `.txt` file containing a **policy or document**.  
+Each paragraph will be treated as a clause.  
+This app will:
+- Predict the **risk level**
+- Generate a **summary**
+- Display **color-coded insights**  
+""")
+
+with st.sidebar:
+    st.header("ℹ️ About")
+    st.markdown("""
+    This tool uses a TF-IDF + Logistic Regression model to identify legal clause risk levels.  
+    It’s trained on labeled HR/Legal policy clauses and provides HR-friendly summaries.
+    """)
+
+uploaded_file = st.file_uploader("📂 Upload a .txt document", type=["txt"])
 
 if uploaded_file:
-    text = uploaded_file.read().decode("utf-8")
-    paragraphs = split_into_paragraphs(text)
+    content = uploaded_file.read().decode("utf-8")
+    clauses = [p.strip() for p in content.split("\n") if p.strip()]
 
-    st.markdown("### 📘 Clause-Level Risk Analysis")
-    for idx, clause in enumerate(paragraphs, start=1):
-        X = vectorizer.transform([clause])
-        risk_pred = model.predict(X)[0]
-        hr_summary = get_hr_insight(clause, risk_pred)
+    st.subheader("🔎 Results")
 
+    for i, clause in enumerate(clauses):
+        cleaned = clean_text(clause)
+        lemmatized = tokenize_and_lemmatize(cleaned)
+        clause_len = len(lemmatized.split())
+
+        X_tfidf = vectorizer.transform([lemmatized])
+        X_final = hstack([X_tfidf, np.array([[clause_len]])])
+
+        pred = model.predict(X_final)[0]
+        pred_label = label_encoder.inverse_transform([pred])[0]
+        hr_summary = generate_hr_summary(pred_label)
+
+        # Colored box
         st.markdown(f"""
-        <div style="background-color:{color_map[risk_pred]}; padding:15px; border-radius:8px; margin-bottom: 15px;">
-            <strong>Clause {idx}:</strong><br>
-            <em>{clause}</em><br><br>
-            <strong>Risk Level:</strong> <span style="color:black;">{risk_pred}</span><br>
-            <strong>HR Insight:</strong> {hr_summary}
+        <div style='background-color:{risk_colors[pred_label]}; padding: 15px; border-radius: 10px; margin-bottom: 15px'>
+            <h4>Clause {i+1}</h4>
+            <p><strong>Clause Text:</strong><br>{clause}</p>
+            <p><strong>Predicted Risk Level:</strong> <span style='font-weight:bold;'>{pred_label}</span></p>
+            <p><strong>HR Summary:</strong> {hr_summary}</p>
         </div>
         """, unsafe_allow_html=True)
+
+    st.success("✅ All clauses analyzed. Scroll to view results.")
+
