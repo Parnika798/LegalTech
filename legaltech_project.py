@@ -86,7 +86,7 @@ cm = confusion_matrix(y_test, y_pred)
 # -------------------
 # Streamlit UI
 # -------------------
-st.set_page_config(page_title="\ud83d\udcc1 Clause Risk Scanner", layout="centered")
+st.set_page_config(page_title="Clause Risk Scanner", layout="centered")
 st.markdown("""
     <style>
         .block-container {
