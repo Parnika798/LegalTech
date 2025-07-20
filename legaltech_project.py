@@ -113,11 +113,11 @@ with st.sidebar:
     - Offers clear HR-friendly summaries
     """)
     st.markdown("---")
-    st.markdown("##  Why Use This?")
+    st.markdown("## Why Use This?")
     st.success("""
-    -  Identify risky content early
-    -  Speed up compliance reviews
-    -  Reduce manual oversight errors
+    - Identify risky content early
+    - Speed up compliance reviews
+    - Reduce manual oversight errors
     """)
 
 # -------------------
@@ -126,7 +126,7 @@ with st.sidebar:
 def color_risk(label):
     color_map = {
         "High": "#e74c3c",
-        "Medium": "#f39c12",
+        "Medium": "#f1c40f",
         "Low": "#27ae60"
     }
     return f"<span style='color:{color_map.get(label, 'gray')}; font-weight:600'>{label}</span>"
@@ -194,17 +194,18 @@ if uploaded_file:
 
             st.session_state.analyzed_results.append((i+1, clause, label, explanation))
 
-        # Plotly Pie Chart in Blue tones
+        # Plotly Pie Chart with Risk Colors
         st.subheader("Risk Level Distribution")
         dist_df = pd.DataFrame(list(summary.items()), columns=["Risk", "Count"])
         fig = px.pie(dist_df, names="Risk", values="Count",
-                     color_discrete_sequence=px.colors.sequential.Blues,
+                     color="Risk",
+                     color_discrete_map={
+                         "High": "#e74c3c",
+                         "Medium": "#f1c40f",
+                         "Low": "#27ae60"
+                     },
                      hole=0.3)
         st.plotly_chart(fig, use_container_width=True)
-
-        st.markdown(f"### Summary of {len(clauses)} Clauses")
-        for l in le.classes_:
-            st.markdown(f"- {l} Risk: `{summary[l]}`")
 
 # -------------------
 # Show Results with Filter
