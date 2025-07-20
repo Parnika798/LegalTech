@@ -129,7 +129,9 @@ if uploaded_file:
 
             # HR-friendly explanation
             tfidf_features = vectorizer.get_feature_names_out()
-            clause_vector = x_input[0].toarray().flatten()[:-1]
+            tfidf_part = x_input[:, :-1].toarray().flatten()
+            clause_vector = tfidf_part
+
             top_indices = clause_vector.argsort()[-5:][::-1]
             top_keywords = [tfidf_features[j] for j in top_indices if clause_vector[j] > 0]
 
