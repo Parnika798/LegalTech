@@ -127,7 +127,9 @@ if uploaded_file:
                 explanation = explainer.explain_instance(
                     lemmatized, lime_pipeline.predict_proba, num_features=10
                 )
-                st.components.v1.html(explanation.as_html(), height=500, scrolling=True)
+                st.markdown("#### 🔍 Top Weighted Features:")
+                for word, weight in explanation.as_list():
+                     st.markdown(f"- **{word}**: `{round(weight, 3)}`")
 
                 top_words = [term for term, weight in explanation.as_list() if weight > 0][:5]
                 simplified = (
