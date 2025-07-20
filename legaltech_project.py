@@ -183,7 +183,7 @@ def read_pdf(file):
 if "analyzed_results" not in st.session_state:
     st.session_state.analyzed_results = []
 
-uploaded_file = st.file_uploader("\ud83d\udcc1 Upload Clause File", type=["txt", "pdf"])
+uploaded_file = st.file_uploader("Upload Clause File", type=["txt", "pdf"])
 if uploaded_file:
     content = read_pdf(uploaded_file) if uploaded_file.name.endswith(".pdf") else uploaded_file.read().decode("utf-8")
     clauses = extract_clauses(content)
@@ -232,7 +232,7 @@ if uploaded_file:
 # Show Results with Filter
 # -------------------
 if st.session_state.analyzed_results:
-    choice = st.selectbox("\ud83c\udfe7 Filter by Risk", ["All"] + list(le.classes_))
+    choice = st.selectbox("Filter by Risk", ["All"] + list(le.classes_))
     for idx, text, label, explanation in st.session_state.analyzed_results:
         if choice != "All" and label != choice:
             continue
