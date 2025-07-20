@@ -129,6 +129,16 @@ with st.sidebar:
     - Speed up compliance reviews
     - Reduce manual oversight errors
     """)
+    st.markdown("---")
+    st.markdown("## Dataset Summary")
+    st.markdown("""
+    - **Source**: SpringWorks HR/legal templates  
+    - **Total Clauses**: 510  
+    - **Clause Types**: HR, Confidentiality, Data Protection, Leave, Termination  
+    - **Labels**: High Risk, Medium Risk, Low Risk  
+    - **Format**: CSV with `Clause Text` and `Risk Level`
+    """)
+
 
     st.markdown("## Model Performance")
     st.metric("Accuracy", f"{acc:.2%}")
