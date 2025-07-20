@@ -1,105 +1,144 @@
-# clause_risk_analyzer.py
 import streamlit as st
 import pandas as pd
+import numpy as np
 import re
-import joblib
-from sklearn.feature_extraction.text import TfidfVectorizer
+import spacy
 from sklearn.linear_model import LogisticRegression
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import classification_report, accuracy_score
+from imblearn.over_sampling import RandomOverSampler
+from scipy.sparse import hstack
 
-# Load model and vectorizer
-model = joblib.load("logistic_model.pkl")
-vectorizer = joblib.load("tfidf_vectorizer.pkl")
+# -------------------
+# Load spaCy
+# -------------------
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    import spacy.cli
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
-# --- Rule-based risk scoring ---
-high_risk_keywords = ["retaliation", "termination without cause", "discretion", "non-disclosure", "withhold"]
-ambiguous_phrases = ["may", "might", "reasonable efforts", "from time to time"]
+# -------------------
+# Clean & Lemmatize
+# -------------------
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z\s]', '', text)
+    return re.sub(r'\s+', ' ', text).strip()
 
-@st.cache_data
+def lemmatize(text):
+    doc = nlp(text)
+    return " ".join([token.lemma_ for token in doc if not token.is_stop and not token.is_punct])
 
-def rule_based_risk_score(text):
-    score = 0
-    reasons = []
-    for word in high_risk_keywords:
-        if word in text.lower():
-            score += 2
-            reasons.append(f"contains high-risk keyword: '{word}'")
-    for word in ambiguous_phrases:
-        if word in text.lower():
-            score += 1
-            reasons.append(f"contains ambiguous term: '{word}'")
-    return score, reasons
+# -------------------
+# Load dataset
+# -------------------
+df = pd.read_csv("Clause Dataset.csv", encoding='latin-1')
+df = df[['Clause Text', 'Risk Level']].dropna()
+df['Cleaned'] = df['Clause Text'].astype(str).apply(clean_text)
+df['Lemmatized'] = df['Cleaned'].apply(lemmatize)
+df['Clause Length'] = df['Lemmatized'].apply(lambda x: len(x.split()))
+df = df[df['Risk Level'].map(df['Risk Level'].value_counts()) > 1]
 
-# --- Clause Type Detection ---
-def detect_clause_type(text):
-    if "retaliation" in text.lower():
-        return "Retaliation Risk"
-    elif "confidential" in text.lower():
-        return "Confidentiality Risk"
-    elif "access" in text.lower() or "privacy" in text.lower():
-        return "Access/Privacy Risk"
-    elif "grievance" in text.lower():
-        return "Grievance Procedure"
-    else:
-        return "General Policy"
+# -------------------
+# Encode labels
+# -------------------
+le = LabelEncoder()
+y = le.fit_transform(df['Risk Level'])
 
-# --- Predict Risk with Logic Layer ---
-def predict_risk(text):
-    rule_score, reasons = rule_based_risk_score(text)
-    x_input = vectorizer.transform([text])
-    model_pred = model.predict(x_input)[0]
-    
-    if rule_score >= 3:
-        final_risk = "High"
-    elif rule_score == 2:
-        final_risk = "Medium"
-    else:
-        final_risk = model_pred
+# -------------------
+# TF-IDF + Clause Length
+# -------------------
+vectorizer = TfidfVectorizer(max_features=5000)
+X_text = vectorizer.fit_transform(df['Lemmatized'])
+X = hstack([X_text, np.array(df['Clause Length']).reshape(-1, 1)])
 
-    return final_risk, reasons
+# -------------------
+# Split and balance
+# -------------------
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
+ros = RandomOverSampler(random_state=42)
+X_train_bal, y_train_bal = ros.fit_resample(X_train, y_train)
 
-# --- Color Codes ---
-def risk_color(risk):
-    return {
-        "Low": "#d4edda",
-        "Medium": "#fff3cd",
-        "High": "#f8d7da"
-    }.get(risk, "#ffffff")
+# -------------------
+# Train model
+# -------------------
+model = LogisticRegression(max_iter=1000, class_weight='balanced')
+model.fit(X_train_bal, y_train_bal)
 
-# --- Streamlit UI ---
+# Optional: evaluation in terminal
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred, target_names=le.classes_))
+
+# -------------------
+# Streamlit UI
+# -------------------
 st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
-st.title("📄 Clause Risk Analyzer for HR Policies")
+st.title("📄 Clause Risk Level Analyzer")
+st.markdown("Upload a `.txt` file with **one clause per paragraph** to analyze.")
 
-uploaded_file = st.file_uploader("Upload a text file with clauses (one per paragraph)", type=[".txt"])
+with st.sidebar:
+    st.info("""
+This tool uses **TF-IDF** and **Logistic Regression** to analyze legal clauses and flag potential risk.
+Each clause is evaluated based on key terms and length.
+""")
 
-if uploaded_file is not None:
-    text = uploaded_file.read().decode("utf-8")
-    clauses = [para.strip() for para in text.split("\n\n") if para.strip()]
-    
-    data = []
-    for i, clause in enumerate(clauses, 1):
-        clause_type = detect_clause_type(clause)
-        risk, reasons = predict_risk(clause)
-        color = risk_color(risk)
+uploaded_file = st.file_uploader("📂 Upload clause document (.txt)", type=["txt"])
 
-        st.markdown(f"""
-        <div style='background-color:{color}; padding:10px; border-radius:10px;'>
-            <h4>🧾 Clause {i}</h4>
-            <b>Clause Type:</b> {clause_type}<br>
-            <b>Predicted Risk Level:</b> <span style='color:red'>{risk}</span><br>
-            <b>Why it was flagged:</b>
-            <ul>{''.join([f'<li>{reason}</li>' for reason in reasons])}</ul>
-            <b>Original Clause:</b><br><i>{clause}</i>
-        </div>
-        <br>
-        """, unsafe_allow_html=True)
+# -------------------
+# Risk level color
+# -------------------
+def color_risk(label):
+    color_map = {
+        "High": "red",
+        "Medium": "orange",
+        "Low": "green"
+    }
+    return f"<span style='color:{color_map.get(label, 'gray')}; font-weight:bold'>{label}</span>"
 
-    # Downloadable summary
-    df = pd.DataFrame({
-        "Clause ID": [f"Clause {i+1}" for i in range(len(clauses))],
-        "Clause Text": clauses,
-        "Clause Type": [detect_clause_type(cl) for cl in clauses],
-        "Risk Level": [predict_risk(cl)[0] for cl in clauses]
-    })
-    csv = df.to_csv(index=False).encode("utf-8")
-    st.download_button("📥 Download Risk Summary CSV", csv, "clause_risk_summary.csv", "text/csv")
+# -------------------
+# Clause prediction
+# -------------------
+if uploaded_file:
+    content = uploaded_file.read().decode("utf-8")
+    # Paragraph-wise clause extraction
+    raw_clauses = re.split(r'\n\s*\n', content.strip())
+    clauses = [clause.replace('\n', ' ').strip() for clause in raw_clauses if clause.strip()]
+
+    if st.button("🔍 Analyze Clauses"):
+        st.subheader("📊 Risk Analysis Results")
+
+        for i, clause in enumerate(clauses):
+            cleaned = clean_text(clause)
+            lemmatized = lemmatize(cleaned)
+            clause_len = len(lemmatized.split())
+
+            x_input = vectorizer.transform([lemmatized])
+            x_input = hstack([x_input, np.array([[clause_len]])])
+
+            pred_idx = model.predict(x_input)[0]
+            risk_label = le.inverse_transform([pred_idx])[0]
+
+            st.markdown(f"---\n### 🧾 Clause {i+1}")
+            st.markdown(f"**Original Clause:** {clause}")
+            st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
+
+            # HR-friendly explanation
+            tfidf_features = vectorizer.get_feature_names_out()
+            clause_vector = x_input[0].toarray().flatten()[:-1]
+            top_indices = clause_vector.argsort()[-5:][::-1]
+            top_keywords = [tfidf_features[j] for j in top_indices if clause_vector[j] > 0]
+
+            if top_keywords:
+                summary = f"The model associated this clause with **{risk_label}** risk because of keywords like: **{', '.join(top_keywords)}**."
+            else:
+                summary = f"The model found insufficient risk-related terms, but predicted **{risk_label}** based on length or other statistical patterns."
+
+            st.info(summary)
+
+        st.success("✅ Completed! Scroll through to view all predictions.")
 
