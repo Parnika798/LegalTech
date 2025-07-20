@@ -75,44 +75,64 @@ model.fit(X_train_bal, y_train_bal)
 # -------------------
 # Streamlit UI
 # -------------------
-st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
-st.title("📄 Clause Risk Level Analyzer")
+st.set_page_config(page_title="Clause Risk Analyzer", layout="centered")
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .stButton button {
+            background-color: #1f77b4;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        .stMarkdown h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+        }
+        .stMarkdown h3 {
+            color: #34495e;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-st.sidebar.markdown("## 🤖 What This Tool Does")
-st.sidebar.info("""
-Uses **TF-IDF + Logistic Regression** to flag legal/HR policy clauses as:
-- 🟥 High Risk  
-- 🟧 Medium Risk  
-- 🟩 Low Risk  
+st.title("Clause Risk Analyzer")
+st.markdown("Upload your policy clauses as a `.txt` or `.pdf` file. Each clause should be in a separate paragraph.")
 
-Each clause is analyzed based on legal terms and complexity (length, structure).
-""")
+with st.sidebar:
+    st.markdown("### How It Works")
+    st.caption("This tool uses TF-IDF and Logistic Regression to detect risk levels in HR or legal policy clauses.")
+    st.markdown("""
+    - 🔍 Analyzes legal/HR terms
+    - 📏 Considers clause complexity
+    - 🎯 Flags clauses as High, Medium, or Low Risk
+    """)
 
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("## 💡 Why It Matters")
-st.sidebar.success("""
-- ⚖️ Spot risky clauses before they escalate  
-- ⏱️ Speed up policy & contract reviews  
-- 🧠 HR-friendly summaries (no legal jargon)  
-- 📊 Bring consistency to manual reviews  
-""")
-
-uploaded_file = st.file_uploader("📂 Upload a .txt or .pdf document", type=["txt", "pdf"])
+    st.markdown("---")
+    st.markdown("### Value for HR/Legal Teams")
+    st.caption("Save time, reduce oversight, and improve compliance clarity.")
+    st.markdown("""
+    - 🚨 Highlight risky content early
+    - ⚖️ HR-friendly summaries (no legalese)
+    - 📊 Quick overview of clause-level risks
+    """)
 
 # -------------------
 # Risk level color
 # -------------------
 def color_risk(label):
     color_map = {
-        "High": "red",
-        "Medium": "orange",
-        "Low": "green"
+        "High": "#e74c3c",
+        "Medium": "#f39c12",
+        "Low": "#27ae60"
     }
-    return f"<span style='color:{color_map.get(label, 'gray')}; font-weight:bold'>{label}</span>"
+    return f"<span style='color:{color_map.get(label, 'gray')}; font-weight:600'>{label}</span>"
 
 # -------------------
-# Extract clauses
+# Clause Extraction
 # -------------------
 def extract_clauses(content):
     raw_clauses = re.split(r'\n\s*\n', content.strip())
@@ -130,86 +150,66 @@ def extract_clauses(content):
     return clauses
 
 # -------------------
-# Handle PDF upload
+# PDF Text Reader
 # -------------------
 def read_pdf(file):
     pdf = PyPDF2.PdfReader(file)
-    text = ""
-    for page in pdf.pages:
-        text += page.extract_text() + "\n"
-    return text
+    return "\n".join(page.extract_text() for page in pdf.pages if page.extract_text())
 
 # -------------------
-# Analyze Clauses
+# Analyze Uploaded File
 # -------------------
 if "analyzed_results" not in st.session_state:
     st.session_state.analyzed_results = []
 
+uploaded_file = st.file_uploader("Upload Clause File", type=["txt", "pdf"])
 if uploaded_file:
-    if uploaded_file.name.endswith(".pdf"):
-        content = read_pdf(uploaded_file)
-    else:
-        content = uploaded_file.read().decode("utf-8")
-
+    content = read_pdf(uploaded_file) if uploaded_file.name.endswith(".pdf") else uploaded_file.read().decode("utf-8")
     clauses = extract_clauses(content)
 
-    if st.button("🔍 Analyze Clauses"):
-        st.subheader("📊 Risk Analysis Results")
+    if st.button("Analyze Clauses"):
         st.session_state.analyzed_results.clear()
-        risk_counter = {label: 0 for label in le.classes_}
+        summary = {label: 0 for label in le.classes_}
 
         for i, clause in enumerate(clauses):
             cleaned = clean_text(clause)
             lemmatized = lemmatize(cleaned)
             clause_len = len(lemmatized.split())
-
-            x_input = vectorizer.transform([lemmatized])
-            x_input = hstack([x_input, np.array([[clause_len]])])
+            x_input = hstack([vectorizer.transform([lemmatized]), np.array([[clause_len]])])
             if not isinstance(x_input, csr_matrix):
                 x_input = x_input.tocsr()
+            pred = model.predict(x_input)[0]
+            label = le.inverse_transform([pred])[0]
+            summary[label] += 1
 
-            pred_idx = model.predict(x_input)[0]
-            risk_label = le.inverse_transform([pred_idx])[0]
-            risk_counter[risk_label] += 1
-
-            tfidf_features = vectorizer.get_feature_names_out()
             tfidf_part = x_input[:, :-1].toarray().flatten()
             top_indices = tfidf_part.argsort()[-5:][::-1]
-            top_keywords = [tfidf_features[j] for j in top_indices if tfidf_part[j] > 0]
+            keywords = [vectorizer.get_feature_names_out()[j] for j in top_indices if tfidf_part[j] > 0]
 
-            if top_keywords:
-                explanation = (
-                    f"The system identified words like **{', '.join(top_keywords)}**, which are often found "
-                    f"in clauses dealing with **disciplinary actions, legal obligations, or policy violations**. "
-                    f"These words contributed to the **{risk_label}** risk classification."
-                )
+            if keywords:
+                explanation = f"Words like **{', '.join(keywords)}** indicate this clause relates to compliance, obligations, or disciplinary policy, prompting a **{label}** risk label."
             else:
-                explanation = (
-                    f"The system did not find strong legal or HR-sensitive terms, but based on the **length** and "
-                    f"statistical patterns, it assigned a **{risk_label}** risk label."
-                )
+                explanation = f"No strong terms detected, but length and phrasing indicate a **{label}** risk level."
 
-            st.session_state.analyzed_results.append((i+1, clause, risk_label, explanation))
+            st.session_state.analyzed_results.append((i+1, clause, label, explanation))
 
-        st.markdown("### 📈 Summary")
-        st.markdown(f"- Total Clauses: `{len(clauses)}`")
-        for label in le.classes_:
-            st.markdown(f"- {label} Risk: `{risk_counter[label]}`")
+        st.markdown(f"### Summary of {len(clauses)} Clauses")
+        for l in le.classes_:
+            st.markdown(f"- {l} Risk: `{summary[l]}`")
 
 # -------------------
-# Filtering UI
+# Show Results with Filter
 # -------------------
 if st.session_state.analyzed_results:
-    filter_option = st.selectbox("🔎 Filter by Risk Level", options=["All"] + list(le.classes_))
-
-    for idx, clause, risk_label, explanation in st.session_state.analyzed_results:
-        if filter_option != "All" and risk_label != filter_option:
+    choice = st.selectbox("Filter by Risk", ["All"] + list(le.classes_))
+    for idx, text, label, explanation in st.session_state.analyzed_results:
+        if choice != "All" and label != choice:
             continue
+        st.markdown(f"---\n#### Clause {idx}")
+        st.markdown(f"**Clause:** {text}")
+        st.markdown(f"**Risk Level:** {color_risk(label)}", unsafe_allow_html=True)
+        st.markdown(f"<div style='background:#f4f6f7;padding:10px;border-left:4px solid #ccc;'>{explanation}</div>", unsafe_allow_html=True)
 
-        st.markdown(f"---\n### 🧾 Clause {idx}")
-        st.markdown(f"**Original Clause:** {clause}")
-        st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
-        st.info(explanation)
+    st.success("✅ Review complete.")
 
-    st.success("✅ Filter applied. Scroll for results.")
 
