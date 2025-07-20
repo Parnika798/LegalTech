@@ -10,6 +10,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score
 from imblearn.over_sampling import RandomOverSampler
 from scipy.sparse import hstack, csr_matrix
+import base64
+from io import StringIO
+import PyPDF2
 
 # -------------------
 # Load spaCy
@@ -69,41 +72,33 @@ X_train_bal, y_train_bal = ros.fit_resample(X_train, y_train)
 model = LogisticRegression(max_iter=1000, class_weight='balanced')
 model.fit(X_train_bal, y_train_bal)
 
-# Optional: evaluation in terminal
-y_pred = model.predict(X_test)
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print(classification_report(y_test, y_pred, target_names=le.classes_))
-
 # -------------------
 # Streamlit UI
 # -------------------
 st.set_page_config(page_title="Clause Risk Analyzer", layout="wide")
 st.title("📄 Clause Risk Level Analyzer")
-st.markdown("Upload a `.txt` file with **one clause per paragraph** to analyze.")
 
-with st.sidebar:
-    st.markdown("## 🤖 What This Tool Does")
-    st.info("""
+st.sidebar.markdown("## 🤖 What This Tool Does")
+st.sidebar.info("""
 Uses **TF-IDF + Logistic Regression** to flag legal/HR policy clauses as:
 - 🟥 High Risk  
 - 🟧 Medium Risk  
 - 🟩 Low Risk  
 
 Each clause is analyzed based on legal terms and complexity (length, structure).
-    """)
+""")
 
-    st.markdown("---")
+st.sidebar.markdown("---")
 
-    st.markdown("## 💡 Why It Matters")
-    st.success("""
+st.sidebar.markdown("## 💡 Why It Matters")
+st.sidebar.success("""
 - ⚖️ Spot risky clauses before they escalate  
 - ⏱️ Speed up policy & contract reviews  
 - 🧠 HR-friendly summaries (no legal jargon)  
 - 📊 Bring consistency to manual reviews  
-    """)
+""")
 
-
-uploaded_file = st.file_uploader("📂 Upload clause document (.txt)", type=["txt"])
+uploaded_file = st.file_uploader("📂 Upload a .txt or .pdf document", type=["txt", "pdf"])
 
 # -------------------
 # Risk level color
@@ -117,32 +112,50 @@ def color_risk(label):
     return f"<span style='color:{color_map.get(label, 'gray')}; font-weight:bold'>{label}</span>"
 
 # -------------------
-# Clause prediction
+# Extract clauses
 # -------------------
-if uploaded_file:
-    content = uploaded_file.read().decode("utf-8")
+def extract_clauses(content):
     raw_clauses = re.split(r'\n\s*\n', content.strip())
     clauses = []
-
     for clause in raw_clauses:
         clause_text = clause.replace('\n', ' ').strip()
-
-        # Remove empty, short or title-like entries
         if not clause_text or len(clause_text.split()) < 5:
             continue
-
         title_case_ratio = sum(w.istitle() for w in clause_text.split()) / len(clause_text.split())
         is_title_like = title_case_ratio > 0.8 and len(clause_text.split()) <= 6
         contains_sentence_end = any(p in clause_text for p in ['.', '!', '?'])
-
         if is_title_like or not contains_sentence_end:
             continue
-
         clauses.append(clause_text)
+    return clauses
+
+# -------------------
+# Handle PDF upload
+# -------------------
+def read_pdf(file):
+    pdf = PyPDF2.PdfReader(file)
+    text = ""
+    for page in pdf.pages:
+        text += page.extract_text() + "\n"
+    return text
+
+# -------------------
+# Analyze Clauses
+# -------------------
+if uploaded_file:
+    if uploaded_file.name.endswith(".pdf"):
+        content = read_pdf(uploaded_file)
+    else:
+        content = uploaded_file.read().decode("utf-8")
+
+    clauses = extract_clauses(content)
 
     if st.button("🔍 Analyze Clauses"):
         st.subheader("📊 Risk Analysis Results")
 
+        risk_counter = {label: 0 for label in le.classes_}
+
+        results = []
         for i, clause in enumerate(clauses):
             cleaned = clean_text(clause)
             lemmatized = lemmatize(cleaned)
@@ -150,18 +163,13 @@ if uploaded_file:
 
             x_input = vectorizer.transform([lemmatized])
             x_input = hstack([x_input, np.array([[clause_len]])])
-
             if not isinstance(x_input, csr_matrix):
                 x_input = x_input.tocsr()
 
             pred_idx = model.predict(x_input)[0]
             risk_label = le.inverse_transform([pred_idx])[0]
+            risk_counter[risk_label] += 1
 
-            st.markdown(f"---\n### 🧾 Clause {i+1}")
-            st.markdown(f"**Original Clause:** {clause}")
-            st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
-
-            # HR-friendly explanation
             tfidf_features = vectorizer.get_feature_names_out()
             tfidf_part = x_input[:, :-1].toarray().flatten()
             top_indices = tfidf_part.argsort()[-5:][::-1]
@@ -179,8 +187,25 @@ if uploaded_file:
                     f"statistical patterns, it assigned a **{risk_label}** risk label."
                 )
 
+            results.append((i+1, clause, risk_label, explanation))
+
+        # Summary stats
+        st.markdown("### 📈 Summary")
+        st.markdown(f"- Total Clauses: `{len(clauses)}`")
+        for label in le.classes_:
+            st.markdown(f"- {label} Risk: `{risk_counter[label]}`")
+
+        # Filter option
+        filter_option = st.selectbox("🔎 Filter by Risk Level", options=["All"] + list(le.classes_))
+
+        for idx, clause, risk_label, explanation in results:
+            if filter_option != "All" and risk_label != filter_option:
+                continue
+
+            st.markdown(f"---\n### 🧾 Clause {idx}")
+            st.markdown(f"**Original Clause:** {clause}")
+            st.markdown(f"**Predicted Risk Level:** {color_risk(risk_label)}", unsafe_allow_html=True)
             st.info(explanation)
 
         st.success("✅ All clauses analyzed. Scroll down for results.")
-
 
