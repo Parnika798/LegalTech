@@ -8,12 +8,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, f1_score
 from imblearn.over_sampling import RandomOverSampler
 from scipy.sparse import hstack, csr_matrix
 import base64
 from io import StringIO
 import PyPDF2
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # -------------------
 # Load spaCy
@@ -74,9 +76,18 @@ model = LogisticRegression(max_iter=1000, class_weight='balanced')
 model.fit(X_train_bal, y_train_bal)
 
 # -------------------
+# Evaluation on Test Set
+# -------------------
+y_pred = model.predict(X_test)
+report = classification_report(y_test, y_pred, target_names=le.classes_)
+acc = accuracy_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred, average="macro")
+cm = confusion_matrix(y_test, y_pred)
+
+# -------------------
 # Streamlit UI
 # -------------------
-st.set_page_config(page_title="📑 Clause Risk Scanner", layout="centered")
+st.set_page_config(page_title="\ud83d\udcc1 Clause Risk Scanner", layout="centered")
 st.markdown("""
     <style>
         .block-container {
@@ -120,6 +131,10 @@ with st.sidebar:
     - Reduce manual oversight errors
     """)
 
+    st.markdown("## Model Performance")
+    st.metric("Accuracy", f"{acc:.2%}")
+    st.metric("F1 Score", f"{f1:.2f}")
+
 # -------------------
 # Risk level color
 # -------------------
@@ -162,12 +177,12 @@ def read_pdf(file):
 if "analyzed_results" not in st.session_state:
     st.session_state.analyzed_results = []
 
-uploaded_file = st.file_uploader("📁 Upload Clause File", type=["txt", "pdf"])
+uploaded_file = st.file_uploader("\ud83d\udcc1 Upload Clause File", type=["txt", "pdf"])
 if uploaded_file:
     content = read_pdf(uploaded_file) if uploaded_file.name.endswith(".pdf") else uploaded_file.read().decode("utf-8")
     clauses = extract_clauses(content)
 
-    if st.button("🔍 Analyze Clauses"):
+    if st.button("\ud83d\udd0d Analyze Clauses"):
         st.session_state.analyzed_results.clear()
         summary = {label: 0 for label in le.classes_}
 
@@ -211,7 +226,7 @@ if uploaded_file:
 # Show Results with Filter
 # -------------------
 if st.session_state.analyzed_results:
-    choice = st.selectbox("🎛️ Filter by Risk", ["All"] + list(le.classes_))
+    choice = st.selectbox("\ud83c\udfe7 Filter by Risk", ["All"] + list(le.classes_))
     for idx, text, label, explanation in st.session_state.analyzed_results:
         if choice != "All" and label != choice:
             continue
@@ -220,4 +235,4 @@ if st.session_state.analyzed_results:
         st.markdown(f"**Risk Level:** {color_risk(label)}", unsafe_allow_html=True)
         st.markdown(f"<div style='background:#f4f6f7;padding:10px;border-left:4px solid #ccc;'>{explanation}</div>", unsafe_allow_html=True)
 
-    st.success("✅ Review complete.")
+    st.success("\u2705 Review complete.")
