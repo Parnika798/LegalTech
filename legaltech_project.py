@@ -105,7 +105,7 @@ st.title("HR ComplianceScope")
 st.markdown("Analyze uploaded policy clauses and instantly classify them as High, Medium, or Low Risk.")
 
 with st.sidebar:
-    st.markdown("## ⚙️ How It Works")
+    st.markdown("## How It Works?")
     st.caption("This scanner uses TF-IDF + Logistic Regression to assess legal/HR clauses.")
     st.markdown("""
     - Recognizes sensitive legal/HR terms
