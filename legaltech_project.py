@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import re
 import spacy
-import matplotlib.pyplot as plt
+import plotly.express as px
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -108,16 +108,16 @@ with st.sidebar:
     st.markdown("## ⚙️ How It Works")
     st.caption("This scanner uses TF-IDF + Logistic Regression to assess legal/HR clauses.")
     st.markdown("""
-    - 🔎 Recognizes sensitive legal/HR terms
-    - 📐 Evaluates clause length and structure
-    - 🧠 Offers clear HR-friendly summaries
+    - Recognizes sensitive legal/HR terms
+    - Evaluates clause length and structure
+    - Offers clear HR-friendly summaries
     """)
     st.markdown("---")
-    st.markdown("## 🎯 Why Use This")
+    st.markdown("##  Why Use This?")
     st.success("""
-    - 🚨 Identify risky content early
-    - 📋 Speed up compliance reviews
-    - 🤝 Reduce manual oversight errors
+    -  Identify risky content early
+    -  Speed up compliance reviews
+    -  Reduce manual oversight errors
     """)
 
 # -------------------
@@ -194,12 +194,13 @@ if uploaded_file:
 
             st.session_state.analyzed_results.append((i+1, clause, label, explanation))
 
-        # Pie Chart
-        st.subheader("📊 Risk Level Distribution")
-        fig, ax = plt.subplots()
-        ax.pie(summary.values(), labels=summary.keys(), autopct='%1.1f%%', startangle=140, colors=["#e74c3c", "#f39c12", "#27ae60"])
-        ax.axis('equal')
-        st.pyplot(fig)
+        # Plotly Pie Chart in Blue tones
+        st.subheader("Risk Level Distribution")
+        dist_df = pd.DataFrame(list(summary.items()), columns=["Risk", "Count"])
+        fig = px.pie(dist_df, names="Risk", values="Count",
+                     color_discrete_sequence=px.colors.sequential.Blues,
+                     hole=0.3)
+        st.plotly_chart(fig, use_container_width=True)
 
         st.markdown(f"### Summary of {len(clauses)} Clauses")
         for l in le.classes_:
@@ -219,4 +220,3 @@ if st.session_state.analyzed_results:
         st.markdown(f"<div style='background:#f4f6f7;padding:10px;border-left:4px solid #ccc;'>{explanation}</div>", unsafe_allow_html=True)
 
     st.success("✅ Review complete.")
-
